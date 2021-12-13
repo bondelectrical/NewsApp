@@ -1,4 +1,4 @@
-package nlt.bondarenko.newsapp;
+package nlt.bondarenko.newsapp.screens;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import nlt.bondarenko.newsapp.R;
 
 public class ArticleFragment extends Fragment {
 

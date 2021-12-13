@@ -1,4 +1,4 @@
-package nlt.bondarenko.newsapp;
+package nlt.bondarenko.newsapp.screens;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -9,6 +9,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+
+import nlt.bondarenko.newsapp.R;
+import nlt.bondarenko.newsapp.screens.articleList.ArticleListFragment;
 
 public class MainActivity extends AppCompatActivity {
 
