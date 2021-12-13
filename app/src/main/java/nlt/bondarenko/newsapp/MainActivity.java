@@ -1,16 +1,14 @@
 package nlt.bondarenko.newsapp;
 
+import android.os.Bundle;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.FrameLayout;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,10 +47,6 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.navigation_bookmarks:
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.frame_layout_main, bookmarkFragment,null).commit();
-                        break;
-                    default:
-                        getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.frame_layout_main, articleListFragment, null).commit();
                         break;
                 }
                 return true;

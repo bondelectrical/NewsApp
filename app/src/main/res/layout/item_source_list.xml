@@ -5,14 +5,15 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     app:cardCornerRadius="8dp"
+    android:elevation="4dp"
     app:cardBackgroundColor="@color/white"
-    android:outlineSpotShadowColor="@color/black"
-    android:layout_gravity="center">
+    app:cardUseCompatPadding="true">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/text_view_source_news"
             android:layout_width="wrap_content"
@@ -20,20 +21,22 @@
             android:layout_gravity="center"
             android:layout_marginBottom="4dp"
             android:layout_marginTop="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:textSize="22dp"
-            tools:text="@string/sources"/>
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:textSize="20sp"
+            tools:text="@string/sources" />
 
         <TextView
             android:id="@+id/text_view_description_source_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:maxLines="4"
             android:gravity="center"
-            android:textSize="16dp"
+            android:textSize="14sp"
             tools:text="Search existing news sources, headlines, and topics from a database of over 3000 news sources archived in the past 2 years." />
     </LinearLayout>
 
