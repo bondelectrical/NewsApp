@@ -12,20 +12,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import nlt.bondarenko.newsapp.R;
-import nlt.bondarenko.newsapp.data.SourceListItem;
+import nlt.bondarenko.newsapp.util.newsApi.models.Source;
 
 public class SourceListAdapter extends RecyclerView.Adapter<SourceListAdapter.SourceListViewHolder> {
 
     private final LayoutInflater inflater;
     private final OnSourceListClickListener sourceListClickListener;
-    private List<SourceListItem> sourceList;
+    private List<Source> sourceList;
 
     public SourceListAdapter(Context context, OnSourceListClickListener sourceListClickListener) {
         this.sourceListClickListener = sourceListClickListener;
         this.inflater = LayoutInflater.from(context);
     }
 
-    public void setList(List<SourceListItem> sources) {
+    public void setList(List<Source> sources) {
         sourceList = sources;
         notifyDataSetChanged();
     }
@@ -40,9 +40,9 @@ public class SourceListAdapter extends RecyclerView.Adapter<SourceListAdapter.So
 
     @Override
     public void onBindViewHolder(@NonNull SourceListViewHolder holder, int position) {
-        SourceListItem sourceListItem = sourceList.get(position);
-        holder.textViewSourceNews.setText(sourceListItem.getSourceNews());
-        holder.textViewDescriptionNews.setText(sourceListItem.getSourceNewsDescription());
+        Source sourceListItem = sourceList.get(position);
+        holder.textViewSourceNews.setText(sourceListItem.getName());
+        holder.textViewDescriptionNews.setText(sourceListItem.getDescription());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,11 +55,11 @@ public class SourceListAdapter extends RecyclerView.Adapter<SourceListAdapter.So
 
     @Override
     public int getItemCount() {
-        return sourceList.size();
+        return sourceList == null ? 0 : sourceList.size();
     }
 
     public interface OnSourceListClickListener {
-        void OnSourceListClick(SourceListItem sourceListItem, int position);
+        void OnSourceListClick(Source sourceListItem, int position);
     }
 
     public class SourceListViewHolder extends RecyclerView.ViewHolder {
