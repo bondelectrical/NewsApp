@@ -12,6 +12,8 @@ import com.google.android.material.navigation.NavigationBarView;
 
 import nlt.bondarenko.newsapp.R;
 import nlt.bondarenko.newsapp.screens.articleList.ArticleListFragment;
+import nlt.bondarenko.newsapp.screens.bokmarks.BookmarkFragment;
+import nlt.bondarenko.newsapp.screens.sourceList.SourceListFragment;
 
 public class MainActivity extends AppCompatActivity {
 
