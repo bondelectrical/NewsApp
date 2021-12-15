@@ -1,11 +1,10 @@
 package nlt.bondarenko.newsapp.repository;
 
-import java.util.List;
+import java.io.IOException;
 
-import nlt.bondarenko.newsapp.data.SourceListItem;
+import nlt.bondarenko.newsapp.util.newsApi.models.response.SourceResponse;
 
 public interface Repository {
-    String getMessage();
 
-    List<SourceListItem> getSourceList();
+    SourceResponse getSourceList() throws IOException;
 }

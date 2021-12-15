@@ -1,28 +1,30 @@
 package nlt.bondarenko.newsapp.data;
 
-public class SourceListItem {
+public class SourceListItem implements SourceList {
 
     private String sourceNews;
     private String sourceNewsDescription;
+    private String sourceUrl;
 
     public SourceListItem(String sourceNews, String sourceNewsDescription) {
         this.sourceNews = sourceNews;
         this.sourceNewsDescription = sourceNewsDescription;
     }
 
+    @Override
     public String getSourceNews() {
         return sourceNews;
     }
 
-    public void setSourceNews(String sourceNews) {
-        this.sourceNews = sourceNews;
-    }
-
+    @Override
     public String getSourceNewsDescription() {
         return sourceNewsDescription;
     }
 
-    public void setSourceNewsDescription(String sourceNewsDescription) {
-        this.sourceNewsDescription = sourceNewsDescription;
+    @Override
+    public String getUrl() {
+        return sourceUrl;
     }
+
+
 }

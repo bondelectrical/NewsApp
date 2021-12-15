@@ -11,7 +11,7 @@ public class ArticleListPresenterImpl implements ArticleListContract.ArticleList
 
     @Override
     public void onClickItemListView() {
-        view.updateMessage(interactor.getMessage());
+
     }
 
     @Override

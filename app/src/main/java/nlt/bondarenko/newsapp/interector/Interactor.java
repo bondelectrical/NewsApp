@@ -1,12 +1,10 @@
 package nlt.bondarenko.newsapp.interector;
 
-import java.util.List;
+import java.io.IOException;
 
-import nlt.bondarenko.newsapp.data.SourceListItem;
+import nlt.bondarenko.newsapp.util.newsApi.models.response.SourceResponse;
 
 public interface Interactor {
 
-    String getMessage();
-
-    List<SourceListItem> getSourceListNews();
+    SourceResponse getSourceListNews() throws IOException;
 }

@@ -41,8 +41,8 @@ public class SourceListAdapter extends RecyclerView.Adapter<SourceListAdapter.So
     @Override
     public void onBindViewHolder(@NonNull SourceListViewHolder holder, int position) {
         Source sourceListItem = sourceList.get(position);
-        holder.textViewSourceNews.setText(sourceListItem.getName());
-        holder.textViewDescriptionNews.setText(sourceListItem.getDescription());
+        holder.textViewSourceNews.setText(sourceListItem.getSourceNews());
+        holder.textViewDescriptionNews.setText(sourceListItem.getSourceNewsDescription());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,8 +69,8 @@ public class SourceListAdapter extends RecyclerView.Adapter<SourceListAdapter.So
 
         public SourceListViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewDescriptionNews = (TextView) itemView.findViewById(R.id.text_view_description_source_name);
-            textViewSourceNews = (TextView) itemView.findViewById(R.id.text_view_source_news);
+            textViewDescriptionNews = itemView.findViewById(R.id.text_view_description_source_name);
+            textViewSourceNews = itemView.findViewById(R.id.text_view_source_news);
         }
     }
 }

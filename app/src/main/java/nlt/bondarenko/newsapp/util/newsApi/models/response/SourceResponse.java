@@ -12,15 +12,7 @@ public class SourceResponse {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public List<Source> getSources() {
         return sources;
-    }
-
-    public void setSources(List<Source> sources) {
-        this.sources = sources;
     }
 }

@@ -7,35 +7,26 @@ public class News {
     private String imgNews;
     private String textNes;
 
-    public String getUrlNews() {
-        return urlNews;
+    public News(String urlNews, String description, String imgNews, String textNes) {
+        this.urlNews = urlNews;
+        this.description = description;
+        this.imgNews = imgNews;
+        this.textNes = textNes;
     }
 
-    public void setUrlNews(String urlNews) {
-        this.urlNews = urlNews;
+    public String getUrlNews() {
+        return urlNews;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getImgNews() {
         return imgNews;
     }
 
-    public void setImgNews(String imgNews) {
-        this.imgNews = imgNews;
-    }
-
     public String getTextNes() {
         return textNes;
-    }
-
-    public void setTextNes(String textNes) {
-        this.textNes = textNes;
     }
 }
