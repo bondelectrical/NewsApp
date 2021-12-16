@@ -1,4 +1,4 @@
-package nlt.bondarenko.newsapp.screens;
+package nlt.bondarenko.newsapp.screens.article;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

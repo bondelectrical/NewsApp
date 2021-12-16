@@ -19,6 +19,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "API_URL", "\"https://newsapi.org/v2/\""
+            buildConfigField "String", "API_KEY", "\"f41bce9f28454537a9a89222110e029f\""
+        }
+
+        debug {
+            buildConfigField "String", "API_URL", "\"https://newsapi.org/v2/\""
+            buildConfigField "String", "API_KEY", "\"f41bce9f28454537a9a89222110e029f\""
         }
     }
     compileOptions {
@@ -39,5 +46,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
 }

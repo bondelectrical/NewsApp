@@ -7,7 +7,6 @@ import android.os.Looper;
 import java.io.IOException;
 import java.util.List;
 
-import nlt.bondarenko.newsapp.data.SourceListItem;
 import nlt.bondarenko.newsapp.interector.Interactor;
 import nlt.bondarenko.newsapp.interector.InteractorImpl;
 import nlt.bondarenko.newsapp.util.newsApi.models.Source;
@@ -29,8 +28,9 @@ public class SourceListPresenterImpl implements SourceListContract.SourceListPre
     }
 
     @Override
-    public void onClickItemSourceList(SourceListItem sourceListItem, int position) {
-        view.showToast(sourceListItem.getSourceNews());
+    public void onClickItemSourceList(Source sourceListItem, int position) {
+        String address = sourceListItem.getUrl();
+        view.showSourceUrl(address);
 
     }
 

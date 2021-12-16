@@ -2,7 +2,6 @@ package nlt.bondarenko.newsapp.screens.sourceList;
 
 import java.util.List;
 
-import nlt.bondarenko.newsapp.data.SourceListItem;
 import nlt.bondarenko.newsapp.util.newsApi.models.Source;
 
 public interface SourceListContract {
@@ -11,7 +10,7 @@ public interface SourceListContract {
 
         void updateSourceList(List<Source> sourceList);
 
-        void showToast(String sourceName);
+        void showSourceUrl(String sourceUrl);
     }
 
     interface SourceListPresenter {
@@ -20,7 +19,7 @@ public interface SourceListContract {
 
         void detach();
 
-        void onClickItemSourceList(SourceListItem sourceListItem, int position);
+        void onClickItemSourceList(Source sourceListItem, int position);
 
         void getSourceList();
 

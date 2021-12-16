@@ -11,6 +11,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import nlt.bondarenko.newsapp.R;
+import nlt.bondarenko.newsapp.screens.article.ArticleFragment;
 import nlt.bondarenko.newsapp.screens.articleList.ArticleListFragment;
 import nlt.bondarenko.newsapp.screens.bokmarks.BookmarkFragment;
 import nlt.bondarenko.newsapp.screens.sourceList.SourceListFragment;
@@ -32,9 +33,10 @@ public class MainActivity extends AppCompatActivity {
         bookmarkFragment = new BookmarkFragment();
         sourceListFragment = new SourceListFragment();
 
-        BottomNavigationView bottomNavigationViewMain = (BottomNavigationView) findViewById(R.id.bottom_navigation_main);
+
+        BottomNavigationView bottomNavigationViewMain = findViewById(R.id.bottom_navigation_main);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.frame_layout_main, sourceListFragment );
+        fragmentTransaction.add(R.id.frame_layout_main, sourceListFragment);
         fragmentTransaction.commit();
 
         bottomNavigationViewMain.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {

@@ -1,9 +1,14 @@
 package nlt.bondarenko.newsapp.screens.articleList;
 
+import java.util.List;
+
+import nlt.bondarenko.newsapp.util.newsApi.models.Article;
+
 public interface ArticleListContract {
 
     interface ArticleListView {
-        void updateMessage(String message);
+
+        void updateArticleList(List<Article> articleList);
     }
 
     interface ArticleListPresenter {
@@ -11,6 +16,7 @@ public interface ArticleListContract {
 
         void detach();
 
-        void onClickItemListView();
+        void getArticleList();
+
     }
 }
