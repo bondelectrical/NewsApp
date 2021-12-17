@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -21,8 +21,11 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListViewHold
 
     private final LayoutInflater inflater;
     private List<Article> articleList;
+    private Context context;
 
     public ArticleListAdapter(Context context) {
+
+        this.context = context;
         this.inflater = LayoutInflater.from(context);
     }
 
@@ -39,14 +42,15 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListViewHold
         return new ArticleListViewHolder(view);
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull ArticleListViewHolder holder, int position) {
         Article articleItem = articleList.get(position);
         ImageView imageViewNews = holder.imageViewNews;
-        Picasso.get().load(articleItem.getUrlToImage()).into(imageViewNews);
+        Glide.with(context).load(articleItem.getUrlToImage()).into(imageViewNews);
         holder.textViewTitleNews.setText(articleItem.getTitle());
         holder.textViewDescriptionNews.setText(articleItem.getDescription());
-//        holder.textViewNameSource.setText(articleItem.getArticleSource().getName());
+        holder.textViewNameSource.setText(articleItem.getName());
         holder.imageViewButtonShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

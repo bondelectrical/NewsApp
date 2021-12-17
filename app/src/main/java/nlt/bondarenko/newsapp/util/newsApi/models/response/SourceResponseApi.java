@@ -8,4 +8,5 @@ public interface SourceResponseApi {
 
     @GET("top-headlines/sources?")
     Call<SourceResponse> getSources(@Query("apiKey") String apiKey);
+
 }

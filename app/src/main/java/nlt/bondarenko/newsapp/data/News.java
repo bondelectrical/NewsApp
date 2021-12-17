@@ -1,32 +1,14 @@
 package nlt.bondarenko.newsapp.data;
 
-public class News {
+public interface News {
 
-    private String urlNews;
-    private String description;
-    private String imgNews;
-    private String textNes;
+    String getName();
 
-    public News(String urlNews, String description, String imgNews, String textNes) {
-        this.urlNews = urlNews;
-        this.description = description;
-        this.imgNews = imgNews;
-        this.textNes = textNes;
-    }
+    String getTitle();
 
-    public String getUrlNews() {
-        return urlNews;
-    }
+    String getDescription();
 
-    public String getDescription() {
-        return description;
-    }
+    String getUrl();
 
-    public String getImgNews() {
-        return imgNews;
-    }
-
-    public String getTextNes() {
-        return textNes;
-    }
+    String getUrlToImage();
 }

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,6 +25,7 @@ public class ArticleListFragment extends Fragment implements ArticleListContract
     private RecyclerView recyclerViewArticle;
     private SearchView searchViewNews;
     private ArticleListAdapter articleListAdapterNews;
+    ;
 
 
     @Nullable
@@ -43,6 +45,20 @@ public class ArticleListFragment extends Fragment implements ArticleListContract
         recyclerViewArticle.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewArticle.setAdapter(articleListAdapterNews);
         articleListPresenter.getArticleList();
+
+        searchViewNews.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                //TODO create search news and output on view
+                Toast.makeText(getContext(), searchViewNews.getQuery().toString(), Toast.LENGTH_LONG).show();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
     }
 
     @Override

@@ -1,6 +1,9 @@
 package nlt.bondarenko.newsapp.repository;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 import nlt.bondarenko.newsapp.BuildConfig;
 import nlt.bondarenko.newsapp.util.newsApi.models.response.ArticleResponse;
@@ -16,12 +19,19 @@ public class RepositoryImpl implements Repository {
 
     @Override
     public ArticleResponse getArticleSourceList() throws IOException {
-        return NetworkService.getArticleResponseApi().getSourcesArticle(BuildConfig.API_KEY).execute().body();
+        String country = Locale.getDefault().getCountry();
+        Map<String, String> query = new HashMap<>();
+        query.put("country", country);
+        query.put("apiKey", BuildConfig.API_KEY);
+        return NetworkService.getArticleResponseApi().getSourcesArticle(query).execute().body();
     }
 
     @Override
     public ArticleResponse getArticleResponseSearchList(String searchNews) throws IOException {
-        return NetworkService.getArticleResponseApi().getSourcesSearch(searchNews, BuildConfig.API_KEY).execute().body();
+        Map<String, String> query = new HashMap<>();
+        query.put("q", searchNews);
+        query.put("apiKey", BuildConfig.API_KEY);
+        return NetworkService.getArticleResponseApi().getSourcesArticle(query).execute().body();
     }
 
 }
