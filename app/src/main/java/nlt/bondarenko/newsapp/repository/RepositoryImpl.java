@@ -12,6 +12,20 @@ import nlt.bondarenko.newsapp.util.newsApi.network.NetworkService;
 
 public class RepositoryImpl implements Repository {
 
+    private static RepositoryImpl repository;
+
+    private RepositoryImpl() {
+    }
+
+    public static RepositoryImpl getRepositoryImpl() {
+        if (repository == null) {
+            synchronized (RepositoryImpl.class) {
+                repository = new RepositoryImpl();
+            }
+        }
+        return repository;
+    }
+
     @Override
     public SourceResponse getSourceList() throws IOException {
         return NetworkService.getSourceResponseApi().getSources(BuildConfig.API_KEY).execute().body();

@@ -38,6 +38,7 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListViewHold
     @NonNull
     @Override
     public ArticleListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        context = parent.getContext();
         View view = inflater.inflate(R.layout.item_article_list, parent, false);
         return new ArticleListViewHolder(view);
     }
@@ -47,7 +48,7 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListViewHold
     public void onBindViewHolder(@NonNull ArticleListViewHolder holder, int position) {
         Article articleItem = articleList.get(position);
         ImageView imageViewNews = holder.imageViewNews;
-        Glide.with(context).load(articleItem.getUrlToImage()).into(imageViewNews);
+        Glide.with(imageViewNews.getContext()).load(articleItem.getUrlToImage()).into(imageViewNews);
         holder.textViewTitleNews.setText(articleItem.getTitle());
         holder.textViewDescriptionNews.setText(articleItem.getDescription());
         holder.textViewNameSource.setText(articleItem.getName());
