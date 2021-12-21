@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +16,7 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import nlt.bondarenko.newsapp.R;
+import nlt.bondarenko.newsapp.data.News;
 import nlt.bondarenko.newsapp.util.newsApi.models.Article;
 
 public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListViewHolder> {
@@ -22,6 +24,7 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListViewHold
     private final LayoutInflater inflater;
     private List<Article> articleList;
     private Context context;
+    private OnClickListenetArticleList onClickListenetArticleList;
 
     public ArticleListAdapter(Context context) {
 
@@ -55,6 +58,8 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListViewHold
         holder.imageViewButtonShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.getId();
+                Toast.makeText(v.getContext(), " id item" + holder.getAdapterPosition(), Toast.LENGTH_SHORT).show();
                 //TODO share URL news
 
             }
@@ -63,6 +68,8 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListViewHold
         holder.imageViewButtonMark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                News news = (News) articleItem;
+                onClickListenetArticleList.onClickItemArticle(news);
                 //TODO add/delete Marks
 
             }

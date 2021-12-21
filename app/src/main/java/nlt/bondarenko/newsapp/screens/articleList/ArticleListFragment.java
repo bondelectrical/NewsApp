@@ -25,7 +25,6 @@ public class ArticleListFragment extends Fragment implements ArticleListContract
     private RecyclerView recyclerViewArticle;
     private SearchView searchViewNews;
     private ArticleListAdapter articleListAdapterNews;
-    ;
 
 
     @Nullable
