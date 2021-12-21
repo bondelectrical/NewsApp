@@ -2,11 +2,12 @@ package nlt.bondarenko.newsapp.roomdatabase.entity;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import nlt.bondarenko.newsapp.data.News;
 
-@Entity
+@Entity(indices = {@Index(value = "title", unique = true)})
 public class NewsBookMarksEntity implements News {
     @PrimaryKey(autoGenerate = true)
     private long id;

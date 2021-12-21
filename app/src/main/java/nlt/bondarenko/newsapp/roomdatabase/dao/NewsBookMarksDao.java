@@ -4,6 +4,7 @@ package nlt.bondarenko.newsapp.roomdatabase.dao;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -24,7 +25,7 @@ public interface NewsBookMarksDao {
     @Query("SELECT url FROM NewsBookMarksEntity WHERE id = :id")
     NewsBookMarksUrl getUrl(long id);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(NewsBookMarksEntity newsBookMarks);
 
     @Update
