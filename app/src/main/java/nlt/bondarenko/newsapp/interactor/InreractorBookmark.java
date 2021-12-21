@@ -1,4 +1,4 @@
-package nlt.bondarenko.newsapp.interector;
+package nlt.bondarenko.newsapp.interactor;
 
 import android.content.Context;
 

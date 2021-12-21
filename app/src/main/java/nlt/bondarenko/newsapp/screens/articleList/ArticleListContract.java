@@ -16,6 +16,8 @@ public interface ArticleListContract {
 
         void detach();
 
+        void setArticleDataBase(Article news);
+
         void getArticleList();
 
     }

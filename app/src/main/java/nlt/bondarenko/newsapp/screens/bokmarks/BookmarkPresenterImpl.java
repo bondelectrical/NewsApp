@@ -1,22 +1,26 @@
 package nlt.bondarenko.newsapp.screens.bokmarks;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 
 import java.util.List;
 
-import nlt.bondarenko.newsapp.interector.InreractorBookmark;
-import nlt.bondarenko.newsapp.interector.InreractorBookmarkImpl;
+import nlt.bondarenko.newsapp.interactor.InreractorBookmark;
+import nlt.bondarenko.newsapp.interactor.InreractorBookmarkImpl;
 import nlt.bondarenko.newsapp.roomdatabase.entity.NewsBookMarksEntity;
 
 public class BookmarkPresenterImpl implements BookmarkContract.BookmarkPresenter {
 
-    private InreractorBookmark inreractorBookmark = new InreractorBookmarkImpl();
-
+    private final InreractorBookmark inreractorBookmark;
+    private final Handler handler;
     private BookmarkContract.BookmarkView view;
     private Context context;
 
     public BookmarkPresenterImpl(Context context) {
         this.context = context;
+        inreractorBookmark = new InreractorBookmarkImpl();
+        handler = new Handler(Looper.getMainLooper());
     }
 
     @Override
@@ -32,8 +36,41 @@ public class BookmarkPresenterImpl implements BookmarkContract.BookmarkPresenter
     @Override
     public void getBookmarkList() {
 
+        Thread thread = new Thread(() -> {
+            try {
+                List<NewsBookMarksEntity> newsBookMarks = inreractorBookmark.getNewsBookMarks(context);
+                handler.post(() -> view.updateBookMarksList(newsBookMarks));
+            } catch (Error e) {
+                e.printStackTrace();
+            }
+        });
+        thread.start();
 
-        List<NewsBookMarksEntity> newsBookMarks = inreractorBookmark.getNewsBookMarks(context);
+
+//        Executor executor = new Executor() {
+//            @Override
+//            public void execute(Runnable command) {
+//                command.run();
+//            }
+//        };
+//        executor.execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    List<NewsBookMarksEntity> newsBookMarks = inreractorBookmark.getNewsBookMarks(context);
+//                    handler.post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//
+//                            view.updateBookMarksList(newsBookMarks);
+//                        }
+//                    });
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//
+//            }
+//        });
 
     }
 

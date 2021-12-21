@@ -14,15 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import nlt.bondarenko.newsapp.R;
+import nlt.bondarenko.newsapp.data.News;
 import nlt.bondarenko.newsapp.roomdatabase.entity.NewsBookMarksEntity;
-import nlt.bondarenko.newsapp.screens.general.ArticleListAdapter;
 
-public class BookmarkFragment extends Fragment implements BookmarkContract.BookmarkView {
+public class BookmarkFragment extends Fragment implements BookmarkContract.BookmarkView, BookmarkListAdapter.OnClickListenerMarkList {
 
 
     private BookmarkContract.BookmarkPresenter bookmarkPresenter;
     private RecyclerView recyclerViewMark;
-    private ArticleListAdapter markListAdapterNews;
+    private BookmarkListAdapter markListAdapterNews;
 
     @Nullable
     @Override
@@ -36,7 +36,7 @@ public class BookmarkFragment extends Fragment implements BookmarkContract.Bookm
         super.onViewCreated(view, savedInstanceState);
         bookmarkPresenter.attach(this);
         recyclerViewMark = view.findViewById(R.id.recycle_view_mark_list);
-        markListAdapterNews = new ArticleListAdapter(getContext());
+        markListAdapterNews = new BookmarkListAdapter(getContext(), this);
         recyclerViewMark.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewMark.setAdapter(markListAdapterNews);
         bookmarkPresenter.getBookmarkList();
@@ -50,6 +50,11 @@ public class BookmarkFragment extends Fragment implements BookmarkContract.Bookm
 
     @Override
     public void updateBookMarksList(List<NewsBookMarksEntity> newsBookMarksEntities) {
-        bookmarkPresenter.getBookmarkList();
+        markListAdapterNews.setArticleList(newsBookMarksEntities);
+    }
+
+    @Override
+    public void onClickItemArticle(News news) {
+
     }
 }

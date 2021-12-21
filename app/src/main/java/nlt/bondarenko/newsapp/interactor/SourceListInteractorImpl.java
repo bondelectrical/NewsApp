@@ -1,4 +1,4 @@
-package nlt.bondarenko.newsapp.interector;
+package nlt.bondarenko.newsapp.interactor;
 
 import java.io.IOException;
 
@@ -6,7 +6,7 @@ import nlt.bondarenko.newsapp.repository.Repository;
 import nlt.bondarenko.newsapp.repository.RepositoryImpl;
 import nlt.bondarenko.newsapp.util.newsApi.models.response.SourceResponse;
 
-public class InteractorSourceListImpl implements InteractorSourceList {
+public class SourceListInteractorImpl implements SourceListInteractor {
 
     private Repository repository = RepositoryImpl.getRepositoryImpl();
 

@@ -16,10 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import nlt.bondarenko.newsapp.R;
-import nlt.bondarenko.newsapp.screens.general.ArticleListAdapter;
 import nlt.bondarenko.newsapp.util.newsApi.models.Article;
 
-public class ArticleListFragment extends Fragment implements ArticleListContract.ArticleListView {
+public class ArticleListFragment extends Fragment implements ArticleListContract.ArticleListView, ArticleListAdapter.OnClickListenerArticleList {
 
     private ArticleListContract.ArticleListPresenter articleListPresenter;
     private RecyclerView recyclerViewArticle;
@@ -30,7 +29,7 @@ public class ArticleListFragment extends Fragment implements ArticleListContract
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        articleListPresenter = new ArticleListPresenterImpl();
+        articleListPresenter = new ArticleListPresenterImpl(getContext());
         return inflater.inflate(R.layout.fragment_article_list, null);
     }
 
@@ -40,7 +39,7 @@ public class ArticleListFragment extends Fragment implements ArticleListContract
         articleListPresenter.attach(this);
         recyclerViewArticle = view.findViewById(R.id.recycle_view_article_list);
         searchViewNews = view.findViewById(R.id.search_view_news);
-        articleListAdapterNews = new ArticleListAdapter(getContext());
+        articleListAdapterNews = new ArticleListAdapter(getContext(), this);
         recyclerViewArticle.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewArticle.setAdapter(articleListAdapterNews);
         articleListPresenter.getArticleList();
@@ -70,5 +69,10 @@ public class ArticleListFragment extends Fragment implements ArticleListContract
     public void onDestroyView() {
         articleListPresenter.detach();
         super.onDestroyView();
+    }
+
+    @Override
+    public void onClickItemArticle(Article news) {
+        articleListPresenter.setArticleDataBase(news);
     }
 }

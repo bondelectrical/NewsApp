@@ -1,11 +1,11 @@
-package nlt.bondarenko.newsapp.screens.general;
-
+package nlt.bondarenko.newsapp.screens.bokmarks;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,39 +17,38 @@ import java.util.List;
 
 import nlt.bondarenko.newsapp.R;
 import nlt.bondarenko.newsapp.data.News;
-import nlt.bondarenko.newsapp.util.newsApi.models.Article;
+import nlt.bondarenko.newsapp.roomdatabase.entity.NewsBookMarksEntity;
 
-public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListViewHolder> {
+public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapter.BookmarkViewHolder> {
 
     private final LayoutInflater inflater;
-    private List<Article> articleList;
+    private List<NewsBookMarksEntity> articleList;
     private Context context;
-    private OnClickListenetArticleList onClickListenetArticleList;
+    private OnClickListenerMarkList onClickListenerArticleList;
 
-    public ArticleListAdapter(Context context) {
 
+    public BookmarkListAdapter(Context context, OnClickListenerMarkList onClickListenerMarkList) {
         this.context = context;
         this.inflater = LayoutInflater.from(context);
+        this.onClickListenerArticleList = onClickListenerMarkList;
     }
 
-    public void setArticleList(List<Article> articleList) {
+    public void setArticleList(List<NewsBookMarksEntity> articleList) {
         this.articleList = articleList;
         notifyDataSetChanged();
     }
 
-
     @NonNull
     @Override
-    public ArticleListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BookmarkViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
         View view = inflater.inflate(R.layout.item_article_list, parent, false);
-        return new ArticleListViewHolder(view);
+        return new BookmarkViewHolder(view);
     }
 
-
     @Override
-    public void onBindViewHolder(@NonNull ArticleListViewHolder holder, int position) {
-        Article articleItem = articleList.get(position);
+    public void onBindViewHolder(@NonNull BookmarkViewHolder holder, int position) {
+        News articleItem = articleList.get(position);
         ImageView imageViewNews = holder.imageViewNews;
         Glide.with(imageViewNews.getContext()).load(articleItem.getUrlToImage()).into(imageViewNews);
         holder.textViewTitleNews.setText(articleItem.getTitle());
@@ -69,7 +68,7 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListViewHold
             @Override
             public void onClick(View v) {
                 News news = (News) articleItem;
-                onClickListenetArticleList.onClickItemArticle(news);
+                onClickListenerArticleList.onClickItemArticle(news);
                 //TODO add/delete Marks
 
             }
@@ -94,4 +93,31 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListViewHold
         return 0;
     }
 
+    public interface OnClickListenerMarkList {
+
+        void onClickItemArticle(News news);
+
+    }
+
+    public class BookmarkViewHolder extends RecyclerView.ViewHolder {
+
+        ImageView imageViewNews;
+        TextView textViewTitleNews;
+        TextView textViewDescriptionNews;
+        TextView textViewNameSource;
+        ImageView imageViewButtonShare;
+        ImageView imageViewButtonMark;
+
+
+        public BookmarkViewHolder(@NonNull View itemView) {
+            super(itemView);
+            imageViewNews = itemView.findViewById(R.id.image_view_news);
+            textViewTitleNews = itemView.findViewById(R.id.text_view_news);
+            textViewDescriptionNews = itemView.findViewById(R.id.text_view_description_news);
+            textViewNameSource = itemView.findViewById(R.id.text_view_source);
+            imageViewButtonShare = itemView.findViewById(R.id.image_button_share);
+            imageViewButtonMark = itemView.findViewById(R.id.image_button_bookmark);
+
+        }
+    }
 }
