@@ -4,23 +4,25 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 
+import androidx.fragment.app.FragmentManager;
+
 import java.io.IOException;
 import java.util.List;
 
-import nlt.bondarenko.newsapp.interactor.ArticleInteractor;
-import nlt.bondarenko.newsapp.interactor.ArticleInteractorImpl;
+import nlt.bondarenko.newsapp.interactor.ArticleListInteractor;
+import nlt.bondarenko.newsapp.interactor.ArticleListInteractorImpl;
 import nlt.bondarenko.newsapp.util.newsApi.models.Article;
 
 public class ArticleListPresenterImpl implements ArticleListContract.ArticleListPresenter {
 
-    private final ArticleInteractor interactor;
+    private final ArticleListInteractor interactor;
     private ArticleListContract.ArticleListView view;
     private Handler handler;
     private Context context;
 
     public ArticleListPresenterImpl(Context context) {
         this.context = context;
-        interactor = new ArticleInteractorImpl();
+        interactor = new ArticleListInteractorImpl();
         handler = new Handler(Looper.getMainLooper());
     }
 
@@ -63,6 +65,11 @@ public class ArticleListPresenterImpl implements ArticleListContract.ArticleList
     @Override
     public void shareArticleNews(Article news) {
         interactor.shareArticleNews(context, news);
+    }
+
+    @Override
+    public void showArticleWebView(FragmentManager fragmentManager, String url) {
+        interactor.showArticleNews(fragmentManager, url);
     }
 
 }

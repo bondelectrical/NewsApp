@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,6 +23,11 @@ public class BookmarkFragment extends Fragment implements BookmarkContract.Bookm
     private BookmarkContract.BookmarkPresenter bookmarkPresenter;
     private RecyclerView recyclerViewMark;
     private BookmarkListAdapter markListAdapterNews;
+    private FragmentManager fragmentManager;
+
+    public BookmarkFragment(FragmentManager fragmentManager) {
+        this.fragmentManager = fragmentManager;
+    }
 
     @Nullable
     @Override
@@ -61,5 +67,10 @@ public class BookmarkFragment extends Fragment implements BookmarkContract.Bookm
     @Override
     public void onClickListenerArticleShare(NewsBookMarksEntity news) {
         bookmarkPresenter.shareBookmarkArticle(news);
+    }
+
+    @Override
+    public void onClickListenerWebView(String url) {
+        bookmarkPresenter.showArticleWebView(fragmentManager, url);
     }
 }

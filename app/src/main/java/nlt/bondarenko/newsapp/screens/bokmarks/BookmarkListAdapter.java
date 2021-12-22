@@ -57,8 +57,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO open is WebView
-                articleItem.getUrl();
+                onClickListenerArticleList.onClickListenerWebView(articleItem.getUrl());
             }
         });
 
@@ -84,6 +83,8 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
         void onClickItemArticle(NewsBookMarksEntity news);
 
         void onClickListenerArticleShare(NewsBookMarksEntity news);
+
+        void onClickListenerWebView(String url);
 
     }
 

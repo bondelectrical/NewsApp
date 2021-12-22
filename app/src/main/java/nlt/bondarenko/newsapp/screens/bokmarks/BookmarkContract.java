@@ -1,5 +1,7 @@
 package nlt.bondarenko.newsapp.screens.bokmarks;
 
+import androidx.fragment.app.FragmentManager;
+
 import java.util.List;
 
 import nlt.bondarenko.newsapp.roomdatabase.entity.NewsBookMarksEntity;
@@ -23,6 +25,8 @@ public interface BookmarkContract {
         void deleteBookmarkItem(NewsBookMarksEntity news);
 
         void shareBookmarkArticle(NewsBookMarksEntity news);
+
+        void showArticleWebView(FragmentManager fragmentManager, String url);
 
     }
 

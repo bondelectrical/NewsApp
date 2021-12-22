@@ -4,14 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
+import androidx.fragment.app.FragmentManager;
+
 import java.util.List;
 
+import nlt.bondarenko.newsapp.R;
 import nlt.bondarenko.newsapp.repository.Repository;
 import nlt.bondarenko.newsapp.repository.RepositoryImpl;
 import nlt.bondarenko.newsapp.roomdatabase.entity.NewsBookMarksEntity;
 import nlt.bondarenko.newsapp.roomdatabase.entity.NewsBookMarksUrl;
+import nlt.bondarenko.newsapp.screens.MainActivity;
+import nlt.bondarenko.newsapp.screens.article.ArticleFragment;
 
-public class InreractorBookmarkImpl implements InreractorBookmark {
+public class BookmarkInreractorImpl implements BookmarkInreractor {
 
     private final Repository repository = RepositoryImpl.getRepositoryImpl();
 
@@ -48,5 +53,14 @@ public class InreractorBookmarkImpl implements InreractorBookmark {
             Toast.makeText(context, "No app to send email. Please install at least one",
                     Toast.LENGTH_SHORT).show();
         }
+    }
+
+
+    @Override
+    public void showArticleNews(FragmentManager fragmentManager, String url) {
+        ArticleFragment articleFragment = new ArticleFragment(url);
+        fragmentManager.beginTransaction().replace(R.id.frame_layout_main, articleFragment)
+                .addToBackStack(MainActivity.TAG_ARTICLE_FRAGMENT).commit();
+
     }
 }

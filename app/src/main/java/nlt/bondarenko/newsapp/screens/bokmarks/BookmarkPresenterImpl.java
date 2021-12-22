@@ -4,22 +4,24 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 
+import androidx.fragment.app.FragmentManager;
+
 import java.util.List;
 
-import nlt.bondarenko.newsapp.interactor.InreractorBookmark;
-import nlt.bondarenko.newsapp.interactor.InreractorBookmarkImpl;
+import nlt.bondarenko.newsapp.interactor.BookmarkInreractor;
+import nlt.bondarenko.newsapp.interactor.BookmarkInreractorImpl;
 import nlt.bondarenko.newsapp.roomdatabase.entity.NewsBookMarksEntity;
 
 public class BookmarkPresenterImpl implements BookmarkContract.BookmarkPresenter {
 
-    private final InreractorBookmark inreractorBookmark;
+    private final BookmarkInreractor bookmarkInreractor;
     private final Handler handler;
     private BookmarkContract.BookmarkView view;
     private Context context;
 
     public BookmarkPresenterImpl(Context context) {
         this.context = context;
-        inreractorBookmark = new InreractorBookmarkImpl();
+        bookmarkInreractor = new BookmarkInreractorImpl();
         handler = new Handler(Looper.getMainLooper());
     }
 
@@ -37,7 +39,7 @@ public class BookmarkPresenterImpl implements BookmarkContract.BookmarkPresenter
     public void getBookmarkList() {
 
         Thread thread = new Thread(() -> {
-            List<NewsBookMarksEntity> newsBookMarks = inreractorBookmark.getNewsBookMarks(context);
+            List<NewsBookMarksEntity> newsBookMarks = bookmarkInreractor.getNewsBookMarks(context);
             handler.post(() -> view.updateBookMarksList(newsBookMarks));
         });
         thread.start();
@@ -47,7 +49,7 @@ public class BookmarkPresenterImpl implements BookmarkContract.BookmarkPresenter
     @Override
     public void deleteBookmarkItem(NewsBookMarksEntity news) {
         Thread thread = new Thread(() -> {
-            inreractorBookmark.deleteNewsBookMarks(context, news);
+            bookmarkInreractor.deleteNewsBookMarks(context, news);
             getBookmarkList();
         });
         thread.start();
@@ -56,6 +58,11 @@ public class BookmarkPresenterImpl implements BookmarkContract.BookmarkPresenter
 
     @Override
     public void shareBookmarkArticle(NewsBookMarksEntity news) {
-        inreractorBookmark.shareNewsBookMarks(context, news);
+        bookmarkInreractor.shareNewsBookMarks(context, news);
+    }
+
+    @Override
+    public void showArticleWebView(FragmentManager fragmentManager, String url) {
+        bookmarkInreractor.showArticleNews(fragmentManager, url);
     }
 }

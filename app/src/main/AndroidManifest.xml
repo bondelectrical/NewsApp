@@ -12,7 +12,8 @@
         android:theme="@style/Theme.NewsApp">
 
     <activity
-            android:name=".screens.MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+        android:name=".screens.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,6 +25,11 @@ public class ArticleListFragment extends Fragment implements ArticleListContract
     private RecyclerView recyclerViewArticle;
     private SearchView searchViewNews;
     private ArticleListAdapter articleListAdapterNews;
+    private FragmentManager fragmentManager;
+
+    public ArticleListFragment(FragmentManager fragmentManager) {
+        this.fragmentManager = fragmentManager;
+    }
 
 
     @Nullable
@@ -79,5 +85,10 @@ public class ArticleListFragment extends Fragment implements ArticleListContract
     @Override
     public void onClickListenerArticleShare(Article news) {
         articleListPresenter.shareArticleNews(news);
+    }
+
+    @Override
+    public void onClickListenerWebView(String url) {
+        articleListPresenter.showArticleWebView(fragmentManager, url);
     }
 }

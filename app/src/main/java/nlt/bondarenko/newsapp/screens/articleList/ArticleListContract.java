@@ -1,5 +1,7 @@
 package nlt.bondarenko.newsapp.screens.articleList;
 
+import androidx.fragment.app.FragmentManager;
+
 import java.util.List;
 
 import nlt.bondarenko.newsapp.util.newsApi.models.Article;
@@ -21,6 +23,8 @@ public interface ArticleListContract {
         void getArticleList();
 
         void shareArticleNews(Article news);
+
+        void showArticleWebView(FragmentManager fragmentManager, String url);
 
     }
 }

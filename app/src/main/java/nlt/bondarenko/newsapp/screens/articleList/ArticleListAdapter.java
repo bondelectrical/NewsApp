@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -60,8 +59,7 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO open is WebView
-                Toast.makeText(v.getContext(), " " + articleItem.getUrl(), Toast.LENGTH_SHORT).show();
+                onClickListenerArticleList.onClickListenerWebView(articleItem.getUrl());
             }
         });
 
@@ -73,6 +71,8 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
         void onClickItemArticle(Article news);
 
         void onClickListenerArticleShare(Article news);
+
+        void onClickListenerWebView(String url);
 
     }
 

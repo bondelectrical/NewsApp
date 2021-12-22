@@ -32,5 +32,4 @@ public interface Repository {
 
     void setNewsBookMarksEntity(Context context, NewsBookMarksEntity newsBookMarksEntity);
 
-
 }
