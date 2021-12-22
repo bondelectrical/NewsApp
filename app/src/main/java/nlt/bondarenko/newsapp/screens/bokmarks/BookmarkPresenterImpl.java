@@ -3,6 +3,7 @@ package nlt.bondarenko.newsapp.screens.bokmarks;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import java.util.List;
 
@@ -37,45 +38,21 @@ public class BookmarkPresenterImpl implements BookmarkContract.BookmarkPresenter
     public void getBookmarkList() {
 
         Thread thread = new Thread(() -> {
-            try {
-                List<NewsBookMarksEntity> newsBookMarks = inreractorBookmark.getNewsBookMarks(context);
-                handler.post(() -> view.updateBookMarksList(newsBookMarks));
-            } catch (Error e) {
-                e.printStackTrace();
-            }
+            List<NewsBookMarksEntity> newsBookMarks = inreractorBookmark.getNewsBookMarks(context);
+            handler.post(() -> view.updateBookMarksList(newsBookMarks));
         });
         thread.start();
-
-
-//        Executor executor = new Executor() {
-//            @Override
-//            public void execute(Runnable command) {
-//                command.run();
-//            }
-//        };
-//        executor.execute(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    List<NewsBookMarksEntity> newsBookMarks = inreractorBookmark.getNewsBookMarks(context);
-//                    handler.post(new Runnable() {
-//                        @Override
-//                        public void run() {
-//
-//                            view.updateBookMarksList(newsBookMarks);
-//                        }
-//                    });
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//
-//            }
-//        });
 
     }
 
     @Override
-    public void deleteBookmarkItem(long id) {
+    public void deleteBookmarkItem(NewsBookMarksEntity news) {
+        Log.d("MyTAg", "delete mark");
+        Thread thread = new Thread(() -> {
+            inreractorBookmark.deleteNewsBookMarks(context, news);
+            getBookmarkList();
+        });
+        thread.start();
 
     }
 }

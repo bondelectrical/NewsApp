@@ -3,7 +3,6 @@ package nlt.bondarenko.newsapp.screens.articleList;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.List;
@@ -37,7 +36,6 @@ public class ArticleListPresenterImpl implements ArticleListContract.ArticleList
 
     @Override
     public void setArticleDataBase(Article news) {
-        Toast.makeText(context, " " + news.getName(), Toast.LENGTH_SHORT).show();
         new Thread(new Runnable() {
             @Override
             public void run() {

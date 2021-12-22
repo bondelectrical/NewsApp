@@ -20,7 +20,7 @@ public interface BookmarkContract {
 
         void getBookmarkList();
 
-        void deleteBookmarkItem(long id);
+        void deleteBookmarkItem(NewsBookMarksEntity news);
 
     }
 

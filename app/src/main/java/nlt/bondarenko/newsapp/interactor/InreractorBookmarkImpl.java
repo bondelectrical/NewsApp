@@ -25,8 +25,8 @@ public class InreractorBookmarkImpl implements InreractorBookmark {
     }
 
     @Override
-    public void deleteNewsBookMarks(Context context, long id) {
-        repository.deleteNewsBookMarksEntity(context, repository.getNewsBookMarksEntity(context, id));
+    public void deleteNewsBookMarks(Context context, NewsBookMarksEntity news) {
+        repository.deleteNewsBookMarksEntity(context, news);
     }
 
     @Override

@@ -13,7 +13,7 @@ public interface InreractorBookmark {
 
     NewsBookMarksUrl getNewsBookMarksUrl(Context context, long id);
 
-    void deleteNewsBookMarks(Context context, long id);
+    void deleteNewsBookMarks(Context context, NewsBookMarksEntity news);
 
     void setNewsBookMarks(Context context, NewsBookMarksEntity newsBookMarksEntity);
 

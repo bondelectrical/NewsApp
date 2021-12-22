@@ -16,7 +16,6 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import nlt.bondarenko.newsapp.R;
-import nlt.bondarenko.newsapp.data.News;
 import nlt.bondarenko.newsapp.roomdatabase.entity.NewsBookMarksEntity;
 
 public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapter.BookmarkViewHolder> {
@@ -38,6 +37,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
         notifyDataSetChanged();
     }
 
+
     @NonNull
     @Override
     public BookmarkViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -48,7 +48,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull BookmarkViewHolder holder, int position) {
-        News articleItem = articleList.get(position);
+        NewsBookMarksEntity articleItem = articleList.get(position);
         ImageView imageViewNews = holder.imageViewNews;
         Glide.with(imageViewNews.getContext()).load(articleItem.getUrlToImage()).into(imageViewNews);
         holder.textViewTitleNews.setText(articleItem.getTitle());
@@ -67,10 +67,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
         holder.imageViewButtonMark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                News news = (News) articleItem;
-                onClickListenerArticleList.onClickItemArticle(news);
-                //TODO add/delete Marks
-
+                onClickListenerArticleList.onClickItemArticle(articleItem);
             }
         });
 
@@ -95,7 +92,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
 
     public interface OnClickListenerMarkList {
 
-        void onClickItemArticle(News news);
+        void onClickItemArticle(NewsBookMarksEntity news);
 
     }
 

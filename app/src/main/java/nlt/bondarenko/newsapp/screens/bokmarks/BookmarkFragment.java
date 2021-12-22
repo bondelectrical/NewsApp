@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import nlt.bondarenko.newsapp.R;
-import nlt.bondarenko.newsapp.data.News;
 import nlt.bondarenko.newsapp.roomdatabase.entity.NewsBookMarksEntity;
 
 public class BookmarkFragment extends Fragment implements BookmarkContract.BookmarkView, BookmarkListAdapter.OnClickListenerMarkList {
@@ -53,8 +52,9 @@ public class BookmarkFragment extends Fragment implements BookmarkContract.Bookm
         markListAdapterNews.setArticleList(newsBookMarksEntities);
     }
 
-    @Override
-    public void onClickItemArticle(News news) {
 
+    @Override
+    public void onClickItemArticle(NewsBookMarksEntity news) {
+        bookmarkPresenter.deleteBookmarkItem(news);
     }
 }
