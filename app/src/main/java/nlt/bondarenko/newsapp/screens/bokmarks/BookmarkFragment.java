@@ -57,4 +57,9 @@ public class BookmarkFragment extends Fragment implements BookmarkContract.Bookm
     public void onClickItemArticle(NewsBookMarksEntity news) {
         bookmarkPresenter.deleteBookmarkItem(news);
     }
+
+    @Override
+    public void onClickListenerArticleShare(NewsBookMarksEntity news) {
+        bookmarkPresenter.shareBookmarkArticle(news);
+    }
 }

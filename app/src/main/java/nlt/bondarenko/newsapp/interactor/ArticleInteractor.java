@@ -12,4 +12,6 @@ public interface ArticleInteractor {
     ArticleResponse getArticleListNews() throws IOException;
 
     void setNewsBookMarks(Context context, Article article);
+
+    void shareArticleNews(Context context, Article article);
 }

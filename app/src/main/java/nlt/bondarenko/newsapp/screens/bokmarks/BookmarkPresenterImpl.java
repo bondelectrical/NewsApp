@@ -3,7 +3,6 @@ package nlt.bondarenko.newsapp.screens.bokmarks;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 
 import java.util.List;
 
@@ -47,12 +46,16 @@ public class BookmarkPresenterImpl implements BookmarkContract.BookmarkPresenter
 
     @Override
     public void deleteBookmarkItem(NewsBookMarksEntity news) {
-        Log.d("MyTAg", "delete mark");
         Thread thread = new Thread(() -> {
             inreractorBookmark.deleteNewsBookMarks(context, news);
             getBookmarkList();
         });
         thread.start();
 
+    }
+
+    @Override
+    public void shareBookmarkArticle(NewsBookMarksEntity news) {
+        inreractorBookmark.shareNewsBookMarks(context, news);
     }
 }

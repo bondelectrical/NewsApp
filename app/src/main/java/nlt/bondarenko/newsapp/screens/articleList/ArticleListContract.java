@@ -20,5 +20,7 @@ public interface ArticleListContract {
 
         void getArticleList();
 
+        void shareArticleNews(Article news);
+
     }
 }

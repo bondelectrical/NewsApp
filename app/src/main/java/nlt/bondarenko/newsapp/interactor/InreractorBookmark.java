@@ -17,4 +17,6 @@ public interface InreractorBookmark {
 
     void setNewsBookMarks(Context context, NewsBookMarksEntity newsBookMarksEntity);
 
+    void shareNewsBookMarks(Context context, NewsBookMarksEntity newsBookMarksEntity);
+
 }

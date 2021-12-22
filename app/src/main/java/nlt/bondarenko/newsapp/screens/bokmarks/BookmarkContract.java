@@ -22,6 +22,8 @@ public interface BookmarkContract {
 
         void deleteBookmarkItem(NewsBookMarksEntity news);
 
+        void shareBookmarkArticle(NewsBookMarksEntity news);
+
     }
 
 

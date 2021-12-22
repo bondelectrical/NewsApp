@@ -75,4 +75,9 @@ public class ArticleListFragment extends Fragment implements ArticleListContract
     public void onClickItemArticle(Article news) {
         articleListPresenter.setArticleDataBase(news);
     }
+
+    @Override
+    public void onClickListenerArticleShare(Article news) {
+        articleListPresenter.shareArticleNews(news);
+    }
 }

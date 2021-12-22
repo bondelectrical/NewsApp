@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,19 +31,6 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
         this.onClickListenerArticleList = onClickListenerMarkList;
     }
 
-    public void setArticleList(List<NewsBookMarksEntity> articleList) {
-        this.articleList = articleList;
-        notifyDataSetChanged();
-    }
-
-
-    @NonNull
-    @Override
-    public BookmarkViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        context = parent.getContext();
-        View view = inflater.inflate(R.layout.item_article_list, parent, false);
-        return new BookmarkViewHolder(view);
-    }
 
     @Override
     public void onBindViewHolder(@NonNull BookmarkViewHolder holder, int position) {
@@ -57,10 +43,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
         holder.imageViewButtonShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                v.getId();
-                Toast.makeText(v.getContext(), " id item" + holder.getAdapterPosition(), Toast.LENGTH_SHORT).show();
-                //TODO share URL news
-
+                onClickListenerArticleList.onClickListenerArticleShare(articleItem);
             }
         });
 
@@ -82,6 +65,28 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
 
     }
 
+    public void setArticleList(List<NewsBookMarksEntity> articleList) {
+        this.articleList = articleList;
+        notifyDataSetChanged();
+    }
+
+
+    @NonNull
+    @Override
+    public BookmarkViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        context = parent.getContext();
+        View view = inflater.inflate(R.layout.item_article_list, parent, false);
+        return new BookmarkViewHolder(view);
+    }
+
+    public interface OnClickListenerMarkList {
+
+        void onClickItemArticle(NewsBookMarksEntity news);
+
+        void onClickListenerArticleShare(NewsBookMarksEntity news);
+
+    }
+
     @Override
     public int getItemCount() {
         if (articleList != null) {
@@ -90,11 +95,6 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
         return 0;
     }
 
-    public interface OnClickListenerMarkList {
-
-        void onClickItemArticle(NewsBookMarksEntity news);
-
-    }
 
     public class BookmarkViewHolder extends RecyclerView.ViewHolder {
 

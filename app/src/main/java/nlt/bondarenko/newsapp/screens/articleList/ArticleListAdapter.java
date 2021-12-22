@@ -43,8 +43,7 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
         holder.imageViewButtonShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), " id item" + holder.getAdapterPosition(), Toast.LENGTH_SHORT).show();
-                //TODO share URL news
+                onClickListenerArticleList.onClickListenerArticleShare(articleItem);
 
             }
         });
@@ -55,9 +54,6 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
                 if (articleItem != null) {
                     onClickListenerArticleList.onClickItemArticle(articleItem);
                 }
-
-                //TODO add/delete Marks
-
             }
         });
 
@@ -69,6 +65,14 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
             }
         });
 
+
+    }
+
+    public interface OnClickListenerArticleList {
+
+        void onClickItemArticle(Article news);
+
+        void onClickListenerArticleShare(Article news);
 
     }
 
@@ -84,13 +88,6 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
         context = parent.getContext();
         View view = inflater.inflate(R.layout.item_article_list, parent, false);
         return new ArticleListViewHolder(view);
-    }
-
-
-    public interface OnClickListenerArticleList {
-
-        void onClickItemArticle(Article news);
-
     }
 
     @Override

@@ -60,4 +60,9 @@ public class ArticleListPresenterImpl implements ArticleListContract.ArticleList
         thread.start();
     }
 
+    @Override
+    public void shareArticleNews(Article news) {
+        interactor.shareArticleNews(context, news);
+    }
+
 }
