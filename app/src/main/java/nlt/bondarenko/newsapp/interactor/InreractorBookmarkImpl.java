@@ -11,7 +11,7 @@ import nlt.bondarenko.newsapp.roomdatabase.entity.NewsBookMarksUrl;
 
 public class InreractorBookmarkImpl implements InreractorBookmark {
 
-    private Repository repository = RepositoryImpl.getRepositoryImpl();
+    private final Repository repository = RepositoryImpl.getRepositoryImpl();
 
 
     @Override

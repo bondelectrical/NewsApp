@@ -8,7 +8,7 @@ import nlt.bondarenko.newsapp.util.newsApi.models.response.SourceResponse;
 
 public class InteractorSourceListImpl implements InteractorSourceList {
 
-    private Repository repository = RepositoryImpl.getRepositoryImpl();
+    private final Repository repository = RepositoryImpl.getRepositoryImpl();
 
     @Override
     public SourceResponse getSourceListNews() throws IOException {

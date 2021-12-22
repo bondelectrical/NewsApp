@@ -12,7 +12,7 @@ import nlt.bondarenko.newsapp.util.newsApi.models.response.ArticleResponse;
 
 public class ArticleInteractorImpl implements ArticleInteractor {
 
-    private Repository repository = RepositoryImpl.getRepositoryImpl();
+    private final Repository repository = RepositoryImpl.getRepositoryImpl();
 
     @Override
     public ArticleResponse getArticleListNews() throws IOException {
