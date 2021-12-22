@@ -18,4 +18,6 @@ public interface ArticleListInteractor {
     void shareArticleNews(Context context, Article article);
 
     void showArticleNews(FragmentManager fragmentManager, String url);
+
+    ArticleResponse getArticleListSearchNews(String search) throws IOException;
 }

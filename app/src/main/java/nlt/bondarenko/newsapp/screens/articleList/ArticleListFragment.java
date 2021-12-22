@@ -53,7 +53,7 @@ public class ArticleListFragment extends Fragment implements ArticleListContract
         searchViewNews.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                //TODO create search news and output on view
+                articleListPresenter.getArticleListSearch(query);
                 Toast.makeText(getContext(), searchViewNews.getQuery().toString(), Toast.LENGTH_LONG).show();
                 return false;
             }

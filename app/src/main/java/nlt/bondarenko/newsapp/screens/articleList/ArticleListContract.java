@@ -26,5 +26,7 @@ public interface ArticleListContract {
 
         void showArticleWebView(FragmentManager fragmentManager, String url);
 
+        void getArticleListSearch(String search);
+
     }
 }

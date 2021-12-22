@@ -56,4 +56,9 @@ public class ArticleListInteractorImpl implements ArticleListInteractor {
 
     }
 
+    @Override
+    public ArticleResponse getArticleListSearchNews(String search) throws IOException {
+        return repository.getArticleResponseSearchList(search);
+    }
+
 }

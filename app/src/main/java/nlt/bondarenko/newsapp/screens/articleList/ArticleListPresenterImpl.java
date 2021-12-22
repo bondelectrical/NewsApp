@@ -72,4 +72,17 @@ public class ArticleListPresenterImpl implements ArticleListContract.ArticleList
         interactor.showArticleNews(fragmentManager, url);
     }
 
+    @Override
+    public void getArticleListSearch(String search) {
+        Thread thread = new Thread(() -> {
+            try {
+                List<Article> articleList = interactor.getArticleListSearchNews(search).getArticles();
+                handler.post(() -> view.updateArticleList(articleList));
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+        thread.start();
+    }
+
 }
