@@ -6,6 +6,8 @@ import android.os.Looper;
 
 import androidx.fragment.app.FragmentManager;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.util.List;
 
 import nlt.bondarenko.newsapp.interactor.BookmarkInreractor;
@@ -62,7 +64,7 @@ public class BookmarkPresenterImpl implements BookmarkContract.BookmarkPresenter
     }
 
     @Override
-    public void showArticleWebView(FragmentManager fragmentManager, String url) {
-        bookmarkInreractor.showArticleNews(fragmentManager, url);
+    public void showArticleWebView(FragmentManager fragmentManager, String url, BottomNavigationView bottom) {
+        bookmarkInreractor.showArticleNews(fragmentManager, url, bottom);
     }
 }

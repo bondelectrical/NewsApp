@@ -6,6 +6,8 @@ import android.widget.Toast;
 
 import androidx.fragment.app.FragmentManager;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.io.IOException;
 
 import nlt.bondarenko.newsapp.R;
@@ -49,10 +51,10 @@ public class ArticleListInteractorImpl implements ArticleListInteractor {
     }
 
     @Override
-    public void showArticleNews(FragmentManager fragmentManager, String url) {
-        ArticleFragment articleFragment = new ArticleFragment(url);
-        fragmentManager.beginTransaction().replace(R.id.frame_layout_main, articleFragment)
-                .addToBackStack(MainActivity.TAG_ARTICLE_FRAGMENT).commit();
+    public void showArticleNews(FragmentManager fragmentManager, String url, BottomNavigationView bottom) {
+        ArticleFragment articleFragment = new ArticleFragment(url, bottom);
+        fragmentManager.beginTransaction().add(R.id.frame_layout_main, articleFragment, MainActivity.TAG_ARTICLE_FRAGMENT)
+                .addToBackStack(null).commit();
 
     }
 

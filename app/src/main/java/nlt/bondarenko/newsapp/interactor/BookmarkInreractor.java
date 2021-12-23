@@ -4,6 +4,8 @@ import android.content.Context;
 
 import androidx.fragment.app.FragmentManager;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.util.List;
 
 import nlt.bondarenko.newsapp.roomdatabase.entity.NewsBookMarksEntity;
@@ -21,6 +23,6 @@ public interface BookmarkInreractor {
 
     void shareNewsBookMarks(Context context, NewsBookMarksEntity newsBookMarksEntity);
 
-    void showArticleNews(FragmentManager fragmentManager, String url);
+    void showArticleNews(FragmentManager fragmentManager, String url, BottomNavigationView bottom);
 
 }

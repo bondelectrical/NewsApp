@@ -12,6 +12,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.util.List;
 
 import nlt.bondarenko.newsapp.R;
@@ -24,9 +26,11 @@ public class BookmarkFragment extends Fragment implements BookmarkContract.Bookm
     private RecyclerView recyclerViewMark;
     private BookmarkListAdapter markListAdapterNews;
     private FragmentManager fragmentManager;
+    private BottomNavigationView bottom;
 
-    public BookmarkFragment(FragmentManager fragmentManager) {
+    public BookmarkFragment(FragmentManager fragmentManager, BottomNavigationView bottom) {
         this.fragmentManager = fragmentManager;
+        this.bottom = bottom;
     }
 
     @Nullable
@@ -46,6 +50,7 @@ public class BookmarkFragment extends Fragment implements BookmarkContract.Bookm
         recyclerViewMark.setAdapter(markListAdapterNews);
         bookmarkPresenter.getBookmarkList();
     }
+
 
     @Override
     public void onDestroyView() {
@@ -71,6 +76,6 @@ public class BookmarkFragment extends Fragment implements BookmarkContract.Bookm
 
     @Override
     public void onClickListenerWebView(String url) {
-        bookmarkPresenter.showArticleWebView(fragmentManager, url);
+        bookmarkPresenter.showArticleWebView(fragmentManager, url, bottom);
     }
 }

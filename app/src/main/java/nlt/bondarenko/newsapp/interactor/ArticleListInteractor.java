@@ -4,6 +4,8 @@ import android.content.Context;
 
 import androidx.fragment.app.FragmentManager;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.io.IOException;
 
 import nlt.bondarenko.newsapp.util.newsApi.models.Article;
@@ -17,7 +19,7 @@ public interface ArticleListInteractor {
 
     void shareArticleNews(Context context, Article article);
 
-    void showArticleNews(FragmentManager fragmentManager, String url);
+    void showArticleNews(FragmentManager fragmentManager, String url, BottomNavigationView bottom);
 
     ArticleResponse getArticleListSearchNews(String search) throws IOException;
 }

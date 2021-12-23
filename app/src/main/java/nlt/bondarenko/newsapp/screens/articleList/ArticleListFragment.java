@@ -14,6 +14,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.util.List;
 
 import nlt.bondarenko.newsapp.R;
@@ -26,9 +28,11 @@ public class ArticleListFragment extends Fragment implements ArticleListContract
     private SearchView searchViewNews;
     private ArticleListAdapter articleListAdapterNews;
     private FragmentManager fragmentManager;
+    private BottomNavigationView bottom;
 
-    public ArticleListFragment(FragmentManager fragmentManager) {
+    public ArticleListFragment(FragmentManager fragmentManager, BottomNavigationView bottom) {
         this.fragmentManager = fragmentManager;
+        this.bottom = bottom;
     }
 
 
@@ -43,6 +47,7 @@ public class ArticleListFragment extends Fragment implements ArticleListContract
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         articleListPresenter.attach(this);
+        bottom.setVisibility(View.VISIBLE);
         recyclerViewArticle = view.findViewById(R.id.recycle_view_article_list);
         searchViewNews = view.findViewById(R.id.search_view_news);
         articleListAdapterNews = new ArticleListAdapter(getContext(), this);
@@ -89,6 +94,6 @@ public class ArticleListFragment extends Fragment implements ArticleListContract
 
     @Override
     public void onClickListenerWebView(String url) {
-        articleListPresenter.showArticleWebView(fragmentManager, url);
+        articleListPresenter.showArticleWebView(fragmentManager, url, bottom);
     }
 }

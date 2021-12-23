@@ -2,6 +2,8 @@ package nlt.bondarenko.newsapp.screens.bokmarks;
 
 import androidx.fragment.app.FragmentManager;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.util.List;
 
 import nlt.bondarenko.newsapp.roomdatabase.entity.NewsBookMarksEntity;
@@ -26,7 +28,7 @@ public interface BookmarkContract {
 
         void shareBookmarkArticle(NewsBookMarksEntity news);
 
-        void showArticleWebView(FragmentManager fragmentManager, String url);
+        void showArticleWebView(FragmentManager fragmentManager, String url, BottomNavigationView bottom);
 
     }
 

@@ -1,10 +1,12 @@
 package nlt.bondarenko.newsapp.screens.sourceList;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -24,6 +26,11 @@ public class SourceListFragment extends Fragment implements SourceListContract.S
     private RecyclerView recyclerView;
     private SourceListAdapter sourceListAdapter;
     private SourceListContract.SourceListPresenter sourceListPresenter;
+    private MenuItem item;
+
+    public SourceListFragment(MenuItem item) {
+        this.item = item;
+    }
 
     @Nullable
     @Override
@@ -32,6 +39,7 @@ public class SourceListFragment extends Fragment implements SourceListContract.S
         return inflater.inflate(R.layout.fragment_source_list, null);
     }
 
+    @SuppressLint("ResourceType")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
