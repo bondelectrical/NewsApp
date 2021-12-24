@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationViewMain = findViewById(R.id.bottom_navigation_main);
 
         articleListFragment = new ArticleListFragment(getSupportFragmentManager(), bottomNavigationViewMain);
-//        getSupportFragmentManager().popBackStack(TAG_ARTICLE_LIST_FRAGMENT, POP_BACK_STACK_INCLUSIVE);
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.frame_layout_main, articleListFragment, TAG_ARTICLE_LIST_FRAGMENT)
                 .commit();

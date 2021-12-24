@@ -40,6 +40,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
         holder.textViewTitleNews.setText(articleItem.getTitle());
         holder.textViewDescriptionNews.setText(articleItem.getDescription());
         holder.textViewNameSource.setText(articleItem.getName());
+
         holder.imageViewButtonShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,6 +65,17 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
 
     }
 
+
+    public interface OnClickListenerMarkList {
+
+        void onClickItemArticle(NewsBookMarksEntity news);
+
+        void onClickListenerArticleShare(NewsBookMarksEntity news);
+
+        void onClickListenerWebView(String url);
+
+    }
+
     public void setArticleList(List<NewsBookMarksEntity> articleList) {
         this.articleList = articleList;
         notifyDataSetChanged();
@@ -78,15 +90,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
         return new BookmarkViewHolder(view);
     }
 
-    public interface OnClickListenerMarkList {
 
-        void onClickItemArticle(NewsBookMarksEntity news);
-
-        void onClickListenerArticleShare(NewsBookMarksEntity news);
-
-        void onClickListenerWebView(String url);
-
-    }
 
     @Override
     public int getItemCount() {

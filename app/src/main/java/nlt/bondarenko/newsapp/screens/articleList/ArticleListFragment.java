@@ -1,5 +1,7 @@
 package nlt.bondarenko.newsapp.screens.articleList;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.List;
 
 import nlt.bondarenko.newsapp.R;
+import nlt.bondarenko.newsapp.screens.MainActivity;
+import nlt.bondarenko.newsapp.screens.article.ArticleFragment;
 import nlt.bondarenko.newsapp.util.newsApi.models.Article;
 
 public class ArticleListFragment extends Fragment implements ArticleListContract.ArticleListView, ArticleListAdapter.OnClickListenerArticleList {
@@ -77,6 +81,28 @@ public class ArticleListFragment extends Fragment implements ArticleListContract
     }
 
     @Override
+    public void shareArticleNews(Article news) {
+        Intent sendIntent = new Intent(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, news.getUrl());
+        sendIntent.putExtra(Intent.EXTRA_TITLE, news.getTitle());
+        sendIntent.setType("text/plain");
+        Context context = getContext();
+        if (sendIntent.resolveActivity(context.getPackageManager()) != null) {
+            context.startActivity(Intent.createChooser(sendIntent, null));
+        } else {
+            Toast.makeText(context, "No app to send email. Please install at least one",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void showArticleNews(String url) {
+        ArticleFragment articleFragment = new ArticleFragment(url, bottom);
+        fragmentManager.beginTransaction().add(R.id.frame_layout_main, articleFragment, MainActivity.TAG_ARTICLE_FRAGMENT)
+                .addToBackStack(null).commit();
+    }
+
+    @Override
     public void onDestroyView() {
         articleListPresenter.detach();
         super.onDestroyView();
@@ -94,6 +120,6 @@ public class ArticleListFragment extends Fragment implements ArticleListContract
 
     @Override
     public void onClickListenerWebView(String url) {
-        articleListPresenter.showArticleWebView(fragmentManager, url, bottom);
+        articleListPresenter.showArticleWebView(url);
     }
 }

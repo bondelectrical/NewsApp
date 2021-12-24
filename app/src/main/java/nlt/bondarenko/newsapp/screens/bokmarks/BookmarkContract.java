@@ -1,9 +1,5 @@
 package nlt.bondarenko.newsapp.screens.bokmarks;
 
-import androidx.fragment.app.FragmentManager;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import java.util.List;
 
 import nlt.bondarenko.newsapp.roomdatabase.entity.NewsBookMarksEntity;
@@ -13,6 +9,10 @@ public interface BookmarkContract {
     interface BookmarkView {
 
         void updateBookMarksList(List<NewsBookMarksEntity> newsBookMarksEntities);
+
+        void showArticleNews(String url);
+
+        void shareNewsBookMarks(NewsBookMarksEntity news);
 
     }
 
@@ -28,7 +28,7 @@ public interface BookmarkContract {
 
         void shareBookmarkArticle(NewsBookMarksEntity news);
 
-        void showArticleWebView(FragmentManager fragmentManager, String url, BottomNavigationView bottom);
+        void showArticleWebView(String url);
 
     }
 

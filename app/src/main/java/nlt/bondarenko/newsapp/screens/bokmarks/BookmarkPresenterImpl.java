@@ -4,10 +4,6 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 
-import androidx.fragment.app.FragmentManager;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import java.util.List;
 
 import nlt.bondarenko.newsapp.interactor.BookmarkInreractor;
@@ -50,6 +46,7 @@ public class BookmarkPresenterImpl implements BookmarkContract.BookmarkPresenter
 
     @Override
     public void deleteBookmarkItem(NewsBookMarksEntity news) {
+
         Thread thread = new Thread(() -> {
             bookmarkInreractor.deleteNewsBookMarks(context, news);
             getBookmarkList();
@@ -60,11 +57,11 @@ public class BookmarkPresenterImpl implements BookmarkContract.BookmarkPresenter
 
     @Override
     public void shareBookmarkArticle(NewsBookMarksEntity news) {
-        bookmarkInreractor.shareNewsBookMarks(context, news);
+        view.shareNewsBookMarks(news);
     }
 
     @Override
-    public void showArticleWebView(FragmentManager fragmentManager, String url, BottomNavigationView bottom) {
-        bookmarkInreractor.showArticleNews(fragmentManager, url, bottom);
+    public void showArticleWebView(String url) {
+        view.showArticleNews(url);
     }
 }

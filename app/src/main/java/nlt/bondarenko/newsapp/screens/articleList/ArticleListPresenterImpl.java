@@ -4,10 +4,6 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 
-import androidx.fragment.app.FragmentManager;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -66,12 +62,12 @@ public class ArticleListPresenterImpl implements ArticleListContract.ArticleList
 
     @Override
     public void shareArticleNews(Article news) {
-        interactor.shareArticleNews(context, news);
+        view.shareArticleNews(news);
     }
 
     @Override
-    public void showArticleWebView(FragmentManager fragmentManager, String url, BottomNavigationView bottom) {
-        interactor.showArticleNews(fragmentManager, url, bottom);
+    public void showArticleWebView(String url) {
+        view.showArticleNews(url);
     }
 
     @Override

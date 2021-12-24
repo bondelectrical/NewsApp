@@ -1,9 +1,12 @@
 package nlt.bondarenko.newsapp.screens.bokmarks;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +21,8 @@ import java.util.List;
 
 import nlt.bondarenko.newsapp.R;
 import nlt.bondarenko.newsapp.roomdatabase.entity.NewsBookMarksEntity;
+import nlt.bondarenko.newsapp.screens.MainActivity;
+import nlt.bondarenko.newsapp.screens.article.ArticleFragment;
 
 public class BookmarkFragment extends Fragment implements BookmarkContract.BookmarkView, BookmarkListAdapter.OnClickListenerMarkList {
 
@@ -63,6 +68,29 @@ public class BookmarkFragment extends Fragment implements BookmarkContract.Bookm
         markListAdapterNews.setArticleList(newsBookMarksEntities);
     }
 
+    @Override
+    public void showArticleNews(String url) {
+        ArticleFragment articleFragment = new ArticleFragment(url, bottom);
+        fragmentManager.beginTransaction().add(R.id.frame_layout_main, articleFragment, MainActivity.TAG_ARTICLE_FRAGMENT)
+                .addToBackStack(null).commit();
+
+    }
+
+    @Override
+    public void shareNewsBookMarks(NewsBookMarksEntity news) {
+        Intent sendIntent = new Intent(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, news.getUrl());
+        sendIntent.putExtra(Intent.EXTRA_TITLE, news.getTitle());
+        sendIntent.setType("text/plain");
+        Context context = getContext();
+        if (sendIntent.resolveActivity(context.getPackageManager()) != null) {
+            context.startActivity(Intent.createChooser(sendIntent, null));
+        } else {
+            Toast.makeText(context, "No app to send email. Please install at least one",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     @Override
     public void onClickItemArticle(NewsBookMarksEntity news) {
@@ -76,6 +104,6 @@ public class BookmarkFragment extends Fragment implements BookmarkContract.Bookm
 
     @Override
     public void onClickListenerWebView(String url) {
-        bookmarkPresenter.showArticleWebView(fragmentManager, url, bottom);
+        bookmarkPresenter.showArticleWebView(url);
     }
 }
