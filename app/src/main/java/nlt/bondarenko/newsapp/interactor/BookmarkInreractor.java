@@ -1,20 +1,14 @@
 package nlt.bondarenko.newsapp.interactor;
 
-import android.content.Context;
-
 import java.util.List;
 
-import nlt.bondarenko.newsapp.roomdatabase.entity.NewsBookMarksEntity;
-import nlt.bondarenko.newsapp.roomdatabase.entity.NewsBookMarksUrl;
+import nlt.bondarenko.newsapp.roomdatabase.entity.ArticleBookMarksEntity;
 
 public interface BookmarkInreractor {
 
-    List<NewsBookMarksEntity> getNewsBookMarks(Context context);
+    List<ArticleBookMarksEntity> getArticleBookMarks();
 
-    NewsBookMarksUrl getNewsBookMarksUrl(Context context, long id);
+    void deleteArticleBookMarks(ArticleBookMarksEntity article);
 
-    void deleteNewsBookMarks(Context context, NewsBookMarksEntity news);
-
-    void setNewsBookMarks(Context context, NewsBookMarksEntity newsBookMarksEntity);
 
 }

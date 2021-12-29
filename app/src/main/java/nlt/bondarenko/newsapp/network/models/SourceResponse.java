@@ -1,11 +1,11 @@
-package nlt.bondarenko.newsapp.util.newsApi.models.response;
+package nlt.bondarenko.newsapp.network.models;
 
 import java.util.List;
 
-import nlt.bondarenko.newsapp.util.newsApi.models.Source;
-
 public class SourceResponse {
+
     private String status;
+
     private List<Source> sources;
 
     public String getStatus() {

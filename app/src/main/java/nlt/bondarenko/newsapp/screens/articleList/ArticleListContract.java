@@ -2,7 +2,7 @@ package nlt.bondarenko.newsapp.screens.articleList;
 
 import java.util.List;
 
-import nlt.bondarenko.newsapp.util.newsApi.models.Article;
+import nlt.bondarenko.newsapp.network.models.Article;
 
 public interface ArticleListContract {
 
@@ -10,9 +10,9 @@ public interface ArticleListContract {
 
         void updateArticleList(List<Article> articleList);
 
-        void shareArticleNews(Article news);
+        void shareArticle(Article news);
 
-        void showArticleNews(String url);
+        void showArticle(String url);
     }
 
     interface ArticleListPresenter {
@@ -28,7 +28,7 @@ public interface ArticleListContract {
 
         void showArticleWebView(String url);
 
-        void getArticleListSearch(String search);
+        void getSearchArticleList(String search);
 
     }
 }

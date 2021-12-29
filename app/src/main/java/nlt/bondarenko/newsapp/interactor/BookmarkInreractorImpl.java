@@ -1,13 +1,10 @@
 package nlt.bondarenko.newsapp.interactor;
 
-import android.content.Context;
-
 import java.util.List;
 
 import nlt.bondarenko.newsapp.repository.Repository;
 import nlt.bondarenko.newsapp.repository.RepositoryImpl;
-import nlt.bondarenko.newsapp.roomdatabase.entity.NewsBookMarksEntity;
-import nlt.bondarenko.newsapp.roomdatabase.entity.NewsBookMarksUrl;
+import nlt.bondarenko.newsapp.roomdatabase.entity.ArticleBookMarksEntity;
 
 public class BookmarkInreractorImpl implements BookmarkInreractor {
 
@@ -15,23 +12,14 @@ public class BookmarkInreractorImpl implements BookmarkInreractor {
 
 
     @Override
-    public List<NewsBookMarksEntity> getNewsBookMarks(Context context) {
-        return repository.getNewsBookMarksEntity(context);
+    public List<ArticleBookMarksEntity> getArticleBookMarks() {
+        return repository.getArticleBookMarks();
     }
 
-    @Override
-    public NewsBookMarksUrl getNewsBookMarksUrl(Context context, long id) {
-        return repository.getNewsBookMarksUrl(context, id);
-    }
 
     @Override
-    public void deleteNewsBookMarks(Context context, NewsBookMarksEntity news) {
-        repository.deleteNewsBookMarksEntity(context, news);
-    }
-
-    @Override
-    public void setNewsBookMarks(Context context, NewsBookMarksEntity newsBookMarksEntity) {
-        repository.setNewsBookMarksEntity(context, newsBookMarksEntity);
+    public void deleteArticleBookMarks(ArticleBookMarksEntity article) {
+        repository.deleteArticleBookMarks(article);
     }
 
 }

@@ -1,5 +1,6 @@
-package nlt.bondarenko.newsapp.util.newsApi.models.response;
+package nlt.bondarenko.newsapp.network.api;
 
+import nlt.bondarenko.newsapp.network.models.SourceResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

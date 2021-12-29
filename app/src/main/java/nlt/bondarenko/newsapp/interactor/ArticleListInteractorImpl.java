@@ -1,35 +1,31 @@
 package nlt.bondarenko.newsapp.interactor;
 
-import android.content.Context;
-
-import java.io.IOException;
-
+import nlt.bondarenko.newsapp.network.models.Article;
+import nlt.bondarenko.newsapp.network.models.ArticleResponse;
 import nlt.bondarenko.newsapp.repository.Repository;
 import nlt.bondarenko.newsapp.repository.RepositoryImpl;
-import nlt.bondarenko.newsapp.roomdatabase.entity.NewsBookMarksEntity;
-import nlt.bondarenko.newsapp.util.newsApi.models.Article;
-import nlt.bondarenko.newsapp.util.newsApi.models.response.ArticleResponse;
+import nlt.bondarenko.newsapp.roomdatabase.entity.ArticleBookMarksEntity;
 
 public class ArticleListInteractorImpl implements ArticleListInteractor {
 
     private final Repository repository = RepositoryImpl.getRepositoryImpl();
 
     @Override
-    public ArticleResponse getArticleListNews() throws IOException {
-        return repository.getArticleSourceList();
+    public ArticleResponse getArticleList() {
+        return repository.getArticleList();
     }
 
     @Override
-    public void setNewsBookMarks(Context context, Article article) {
-        NewsBookMarksEntity newsBookMarksEntity = new NewsBookMarksEntity(article.getName(),
+    public void saveArticleBookMark(Article article) {
+        ArticleBookMarksEntity articleBookMarksEntity = new ArticleBookMarksEntity(article.getName(),
                 article.getTitle(), article.getDescription(),
                 article.getUrl(), article.getUrlToImage());
-        repository.setNewsBookMarksEntity(context, newsBookMarksEntity);
+        repository.saveArticleBookMarks(articleBookMarksEntity);
     }
 
     @Override
-    public ArticleResponse getArticleListSearchNews(String search) throws IOException {
-        return repository.getArticleResponseSearchList(search);
+    public ArticleResponse getSearchArticleList(String search) {
+        return repository.getSearchArticleResponseList(search);
     }
 
 }

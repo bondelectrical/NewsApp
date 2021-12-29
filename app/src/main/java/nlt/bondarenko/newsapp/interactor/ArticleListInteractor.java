@@ -1,17 +1,13 @@
 package nlt.bondarenko.newsapp.interactor;
 
-import android.content.Context;
-
-import java.io.IOException;
-
-import nlt.bondarenko.newsapp.util.newsApi.models.Article;
-import nlt.bondarenko.newsapp.util.newsApi.models.response.ArticleResponse;
+import nlt.bondarenko.newsapp.network.models.Article;
+import nlt.bondarenko.newsapp.network.models.ArticleResponse;
 
 public interface ArticleListInteractor {
 
-    ArticleResponse getArticleListNews() throws IOException;
+    ArticleResponse getArticleList();
 
-    void setNewsBookMarks(Context context, Article article);
+    void saveArticleBookMark(Article article);
 
-    ArticleResponse getArticleListSearchNews(String search) throws IOException;
+    ArticleResponse getSearchArticleList(String search);
 }

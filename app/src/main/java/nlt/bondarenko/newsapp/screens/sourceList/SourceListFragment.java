@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -19,17 +18,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import nlt.bondarenko.newsapp.R;
-import nlt.bondarenko.newsapp.util.newsApi.models.Source;
+import nlt.bondarenko.newsapp.network.models.Source;
 
 public class SourceListFragment extends Fragment implements SourceListContract.SourceListView, SourceListAdapter.OnSourceListClickListener {
 
     private RecyclerView recyclerView;
     private SourceListAdapter sourceListAdapter;
     private SourceListContract.SourceListPresenter sourceListPresenter;
-    private MenuItem item;
 
-    public SourceListFragment(MenuItem item) {
-        this.item = item;
+    public static SourceListFragment newInstance() {
+
+        Bundle args = new Bundle();
+
+        SourceListFragment fragment = new SourceListFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Nullable

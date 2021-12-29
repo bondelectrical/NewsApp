@@ -1,12 +1,13 @@
-package nlt.bondarenko.newsapp.util.newsApi.models.response;
+package nlt.bondarenko.newsapp.network.models;
 
 import java.util.List;
 
-import nlt.bondarenko.newsapp.util.newsApi.models.Article;
-
 public class ArticleResponse {
+
     private String status;
+
     private int totalResults;
+
     private List<Article> articles;
 
     public String getStatus() {

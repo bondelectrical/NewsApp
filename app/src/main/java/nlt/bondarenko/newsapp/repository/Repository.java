@@ -1,35 +1,27 @@
 package nlt.bondarenko.newsapp.repository;
 
-import android.content.Context;
-
-import java.io.IOException;
 import java.util.List;
 
-import nlt.bondarenko.newsapp.roomdatabase.entity.NewsBookMarksEntity;
-import nlt.bondarenko.newsapp.roomdatabase.entity.NewsBookMarksUrl;
-import nlt.bondarenko.newsapp.util.newsApi.models.response.ArticleResponse;
-import nlt.bondarenko.newsapp.util.newsApi.models.response.SourceResponse;
+import nlt.bondarenko.newsapp.network.models.ArticleResponse;
+import nlt.bondarenko.newsapp.network.models.SourceResponse;
+import nlt.bondarenko.newsapp.roomdatabase.entity.ArticleBookMarksEntity;
 
 public interface Repository {
 
     //Network method
 
-    SourceResponse getSourceList() throws IOException;
+    SourceResponse getSourceList();
 
-    ArticleResponse getArticleSourceList() throws IOException;
+    ArticleResponse getArticleList();
 
-    ArticleResponse getArticleResponseSearchList(String searchNews) throws IOException;
+    ArticleResponse getSearchArticleResponseList(String searchNews);
 
     //Data base method
 
-    List<NewsBookMarksEntity> getNewsBookMarksEntity(Context context);
+    List<ArticleBookMarksEntity> getArticleBookMarks();
 
-    NewsBookMarksEntity getNewsBookMarksEntity(Context context, long id);
+    void deleteArticleBookMarks(ArticleBookMarksEntity articleBookMarksEntity);
 
-    NewsBookMarksUrl getNewsBookMarksUrl(Context context, long id);
-
-    void deleteNewsBookMarksEntity(Context context, NewsBookMarksEntity newsBookMarksEntity);
-
-    void setNewsBookMarksEntity(Context context, NewsBookMarksEntity newsBookMarksEntity);
+    void saveArticleBookMarks(ArticleBookMarksEntity articleBookMarksEntity);
 
 }

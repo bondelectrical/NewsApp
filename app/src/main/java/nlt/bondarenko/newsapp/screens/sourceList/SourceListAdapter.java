@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import nlt.bondarenko.newsapp.R;
-import nlt.bondarenko.newsapp.util.newsApi.models.Source;
+import nlt.bondarenko.newsapp.network.models.Source;
 
 public class SourceListAdapter extends RecyclerView.Adapter<SourceListAdapter.SourceListViewHolder> {
 

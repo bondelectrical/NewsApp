@@ -2,7 +2,7 @@ package nlt.bondarenko.newsapp.screens.sourceList;
 
 import java.util.List;
 
-import nlt.bondarenko.newsapp.util.newsApi.models.Source;
+import nlt.bondarenko.newsapp.network.models.Source;
 
 public interface SourceListContract {
 

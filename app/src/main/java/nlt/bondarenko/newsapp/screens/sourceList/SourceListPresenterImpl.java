@@ -4,12 +4,11 @@ package nlt.bondarenko.newsapp.screens.sourceList;
 import android.os.Handler;
 import android.os.Looper;
 
-import java.io.IOException;
 import java.util.List;
 
 import nlt.bondarenko.newsapp.interactor.SourceListInteractor;
 import nlt.bondarenko.newsapp.interactor.SourceListInteractorImpl;
-import nlt.bondarenko.newsapp.util.newsApi.models.Source;
+import nlt.bondarenko.newsapp.network.models.Source;
 
 public class SourceListPresenterImpl implements SourceListContract.SourceListPresenter {
 
@@ -37,12 +36,14 @@ public class SourceListPresenterImpl implements SourceListContract.SourceListPre
     @Override
     public void getSourceList() {
         Thread thread = new Thread(() -> {
-            try {
-                List<Source> sources = interactor.getSourceListNews().getSources();
-                handler.post(() -> view.updateSourceList(sources));
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
+            List<Source> sources = interactor.getSourceList().getSources();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (view != null) view.updateSourceList(sources);
+                }
+            });
+//            handler.post(() -> view.updateSourceList(sources));
         });
         thread.start();
     }

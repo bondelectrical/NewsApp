@@ -1,8 +1,8 @@
-package nlt.bondarenko.newsapp.util.newsApi.network;
+package nlt.bondarenko.newsapp.network;
 
 import nlt.bondarenko.newsapp.BuildConfig;
-import nlt.bondarenko.newsapp.util.newsApi.models.response.ArticleResponseApi;
-import nlt.bondarenko.newsapp.util.newsApi.models.response.SourceResponseApi;
+import nlt.bondarenko.newsapp.network.api.ArticleResponseApi;
+import nlt.bondarenko.newsapp.network.api.SourceResponseApi;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -11,19 +11,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NetworkService {
 
     private static Retrofit retrofit;
-
-
-//    public static NetworkService getNetworkService() {
-//        if(networkService != null) {
-//            return networkService;
-//        }
-//        synchronized (NetworkService.class) {
-//            if(networkService ==  null) {
-//                networkService = new NetworkService();
-//            }
-//            return networkService;
-//        }
-//    }
 
     private static synchronized Retrofit getRetrofit() {
         if (retrofit == null) {

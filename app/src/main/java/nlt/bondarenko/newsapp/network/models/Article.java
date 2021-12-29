@@ -1,4 +1,4 @@
-package nlt.bondarenko.newsapp.util.newsApi.models;
+package nlt.bondarenko.newsapp.network.models;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -8,18 +8,25 @@ public class Article implements News {
 
     @SerializedName("source")
     private ArticleSource articleSource;
+
     @SerializedName("author")
     private String author;
+
     @SerializedName("title")
     private String title;
+
     @SerializedName("description")
     private String description;
+
     @SerializedName("url")
     private String url;
+
     @SerializedName("urlToImage")
     private String urlToImage;
+
     @SerializedName("publishedAt")
     private String publishedAt;
+
     @SerializedName("content")
     private String content;
 

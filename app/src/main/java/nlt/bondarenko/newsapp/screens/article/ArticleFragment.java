@@ -11,19 +11,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import nlt.bondarenko.newsapp.R;
 
 public class ArticleFragment extends Fragment {
 
     private WebView webView;
-    private String url;
-    private BottomNavigationView bottomNavigationViewMain;
 
-    public ArticleFragment(String url, BottomNavigationView bottomNavigationViewMain) {
-        this.url = url;
-        this.bottomNavigationViewMain = bottomNavigationViewMain;
+    private String url;
+
+    private static String URL_KEY = "Url";
+
+    public static ArticleFragment newInstance(String url) {
+
+        Bundle args = new Bundle();
+        args.putString(URL_KEY, url);
+        ArticleFragment fragment = new ArticleFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Nullable
@@ -35,15 +39,20 @@ public class ArticleFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        webView = view.findViewById(R.id.web_view_news);
-        webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl(url);
-        bottomNavigationViewMain.setVisibility(View.GONE);
+        if (getArguments() != null) {
+            webView = view.findViewById(R.id.web_view_news);
+            webView.setWebViewClient(new WebViewClient());
+            webView.getSettings().setJavaScriptEnabled(true);
+            webView.loadUrl(getArguments().getString(URL_KEY));
+        }
     }
+
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        bottomNavigationViewMain.setVisibility(View.VISIBLE);
     }
+
 }
+
+
