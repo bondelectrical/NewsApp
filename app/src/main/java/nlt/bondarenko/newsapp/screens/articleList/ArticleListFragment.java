@@ -9,7 +9,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,7 +27,6 @@ public class ArticleListFragment extends Fragment implements ArticleListContract
 
     private ArticleListContract.ArticleListPresenter articleListPresenter;
     private RecyclerView recyclerViewArticle;
-    private SearchView searchViewNews;
     private ArticleListAdapter articleListAdapterNews;
 
 
@@ -54,26 +52,11 @@ public class ArticleListFragment extends Fragment implements ArticleListContract
         super.onViewCreated(view, savedInstanceState);
         articleListPresenter.attach(this);
         recyclerViewArticle = view.findViewById(R.id.recycle_view_article_list);
-        searchViewNews = view.findViewById(R.id.search_view_news);
         articleListAdapterNews = new ArticleListAdapter(getContext(), this);
         recyclerViewArticle.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewArticle.setAdapter(articleListAdapterNews);
         articleListPresenter.getArticleList();
-        searchViewNews.setVisibility(View.GONE);
 
-        searchViewNews.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                articleListPresenter.getSearchArticleList(query);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-
-                return false;
-            }
-        });
     }
 
     @Override
