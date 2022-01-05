@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/navigation_home"
+    <item
+        android:id="@+id/article_list_fragment"
         android:enabled="true"
         android:icon="@drawable/home"
-        android:title="@string/home"/>
-    <item android:id="@+id/navigation_sources"
+        android:title="@string/home" />
+    <item
+        android:id="@+id/source_list_fragment"
         android:enabled="true"
         android:icon="@drawable/dashboard"
-        android:title="@string/sources"/>
-    <item android:id="@+id/navigation_bookmarks"
+        android:title="@string/sources" />
+    <item
+        android:id="@+id/bookmarks_fragment"
         android:enabled="true"
         android:icon="@drawable/bookmark"
-        android:title="@string/bookmarks"/>
+        android:title="@string/bookmarks" />
 </menu>

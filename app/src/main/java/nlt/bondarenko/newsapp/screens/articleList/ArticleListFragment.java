@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -113,9 +114,9 @@ public class ArticleListFragment extends Fragment implements ArticleListContract
     @Override
     public void showArticle(String url) {
         setHasOptionsMenu(false);
-        ArticleFragment articleFragment = ArticleFragment.newInstance(url);
-        getActivity().getSupportFragmentManager().beginTransaction().add(R.id.frame_layout_main, articleFragment, articleFragment.getClass().getSimpleName())
-                .addToBackStack(null).commit();
+        Bundle bundle = new Bundle();
+        bundle.putString(ArticleFragment.URL_KEY, url);
+        Navigation.findNavController(recyclerViewArticle).navigate(R.id.article_fragment, bundle);
 
     }
 

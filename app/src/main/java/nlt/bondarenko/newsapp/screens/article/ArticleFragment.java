@@ -19,14 +19,12 @@ public class ArticleFragment extends Fragment {
 
     private String url;
 
-    private static String URL_KEY = "Url";
+    public static String URL_KEY = "Url";
 
-    public static ArticleFragment newInstance(String url) {
+    public static ArticleFragment newInstance() {
 
-        Bundle args = new Bundle();
-        args.putString(URL_KEY, url);
         ArticleFragment fragment = new ArticleFragment();
-        fragment.setArguments(args);
+
         return fragment;
     }
 

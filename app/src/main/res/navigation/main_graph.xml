@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/article_list_fragment">
+
+    <fragment
+        android:id="@+id/article_list_fragment"
+        android:name="nlt.bondarenko.newsapp.screens.articleList.ArticleListFragment"
+        android:label="ArticleListFragment">
+        <action
+            android:id="@+id/action_article_list_fragment_to_article_fragment"
+            app:destination="@id/article_fragment" />
+        <argument
+            android:name="urlArticle"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/source_list_fragment"
+        android:name="nlt.bondarenko.newsapp.screens.sourceList.SourceListFragment"
+        android:label="SourceListFragment" />
+    <fragment
+        android:id="@+id/bookmarks_fragment"
+        android:name="nlt.bondarenko.newsapp.screens.bokmarks.BookmarkFragment"
+        android:label="BookmarkFragment">
+        <action
+            android:id="@+id/bookmarks_fragment_to_article_fragment"
+            app:destination="@id/article_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/article_fragment"
+        android:name="nlt.bondarenko.newsapp.screens.article.ArticleFragment"
+        android:label="ArticleFragment" />
+</navigation>

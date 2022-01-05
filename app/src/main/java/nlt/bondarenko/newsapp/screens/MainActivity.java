@@ -1,23 +1,21 @@
 package nlt.bondarenko.newsapp.screens;
 
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 
 import nlt.bondarenko.newsapp.R;
-import nlt.bondarenko.newsapp.screens.article.ArticleFragment;
-import nlt.bondarenko.newsapp.screens.articleList.ArticleListFragment;
-import nlt.bondarenko.newsapp.screens.bokmarks.BookmarkFragment;
-import nlt.bondarenko.newsapp.screens.sourceList.SourceListFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,38 +30,27 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationViewMain = findViewById(R.id.bottom_navigation_main);
 
         actionBar = getSupportActionBar();
+        NavHostFragment navHostFragment =
+                (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.frame_layout_main);
+        NavController navController = navHostFragment.getNavController();
 
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.frame_layout_main, ArticleListFragment.newInstance(), ArticleListFragment.class.getSimpleName())
-                .commit();
+        NavigationUI.setupWithNavController(bottomNavigationViewMain, navController);
 
-
-        bottomNavigationViewMain.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.navigation_home:
-                        replaceFragment(ArticleListFragment.newInstance());
-                        break;
-                    case R.id.navigation_sources:
-                        replaceFragment(SourceListFragment.newInstance());
-
-                        break;
-                    case R.id.navigation_bookmarks:
-                        replaceFragment(BookmarkFragment.newInstance());
-                        break;
+            public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
+                if (destination.getId() == R.id.article_fragment) {
+                    actionBar.setDisplayHomeAsUpEnabled(true);
+                    bottomNavigationViewMain.setVisibility(View.GONE);
+                } else {
+                    bottomNavigationViewMain.setVisibility(View.VISIBLE);
+                    actionBar.setDisplayHomeAsUpEnabled(false);
                 }
-                return true;
             }
         });
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        return true;
-    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -73,43 +60,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onAttachFragment(@NonNull Fragment fragment) {
-        super.onAttachFragment(fragment);
-        if (fragment instanceof ArticleFragment) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            bottomNavigationViewMain.setVisibility(View.GONE);
-        } else {
-            bottomNavigationViewMain.setVisibility(View.VISIBLE);
-            actionBar.setDisplayHomeAsUpEnabled(false);
-        }
-    }
-
-
-    public void replaceFragment(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.frame_layout_main, fragment, fragment.getClass().getSimpleName())
-                .commit();
-    }
-
-    @Override
-    public void onBackPressed() {
-        Fragment articleListFragment = getSupportFragmentManager().findFragmentByTag(ArticleListFragment.class.getSimpleName());
-        Fragment articleFragment = getSupportFragmentManager().findFragmentByTag(ArticleFragment.class.getSimpleName());
-        actionBar.setDisplayHomeAsUpEnabled(false);
-        if (articleListFragment != null && articleListFragment.isVisible()) {
-            bottomNavigationViewMain.setVisibility(View.VISIBLE);
-            articleFragment.setHasOptionsMenu(true);
-            super.onBackPressed();
-        } else if (articleFragment != null && articleFragment.isVisible()) {
-            bottomNavigationViewMain.setVisibility(View.VISIBLE);
-            super.onBackPressed();
-        } else {
-            bottomNavigationViewMain.setSelectedItemId(R.id.navigation_home);
-
-        }
     }
 
 }
