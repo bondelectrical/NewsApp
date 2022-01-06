@@ -1,20 +1,28 @@
 package nlt.bondarenko.newsapp.screens.articleList;
 
+import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 
 import java.io.IOException;
 import java.util.List;
 
-import nlt.bondarenko.newsapp.interector.Interactor;
-import nlt.bondarenko.newsapp.interector.InteractorImpl;
+import nlt.bondarenko.newsapp.interactor.ArticleInteractor;
+import nlt.bondarenko.newsapp.interactor.ArticleInteractorImpl;
 import nlt.bondarenko.newsapp.util.newsApi.models.Article;
 
 public class ArticleListPresenterImpl implements ArticleListContract.ArticleListPresenter {
 
-    private Interactor interactor = new InteractorImpl();
+    private final ArticleInteractor interactor;
     private ArticleListContract.ArticleListView view;
-    private Handler handler = new Handler(Looper.getMainLooper());
+    private Handler handler;
+    private Context context;
+
+    public ArticleListPresenterImpl(Context context) {
+        this.context = context;
+        interactor = new ArticleInteractorImpl();
+        handler = new Handler(Looper.getMainLooper());
+    }
 
     @Override
     public void attach(ArticleListContract.ArticleListView view) {
@@ -27,6 +35,19 @@ public class ArticleListPresenterImpl implements ArticleListContract.ArticleList
     }
 
     @Override
+    public void setArticleDataBase(Article news) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                interactor.setNewsBookMarks(context, news);
+
+            }
+        }).start();
+
+    }
+
+
+    @Override
     public void getArticleList() {
         Thread thread = new Thread(() -> {
             try {
@@ -37,6 +58,6 @@ public class ArticleListPresenterImpl implements ArticleListContract.ArticleList
             }
         });
         thread.start();
-
     }
+
 }

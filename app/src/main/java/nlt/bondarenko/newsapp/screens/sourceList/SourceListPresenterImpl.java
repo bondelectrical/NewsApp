@@ -7,14 +7,14 @@ import android.os.Looper;
 import java.io.IOException;
 import java.util.List;
 
-import nlt.bondarenko.newsapp.interector.Interactor;
-import nlt.bondarenko.newsapp.interector.InteractorImpl;
+import nlt.bondarenko.newsapp.interactor.InteractorSourceList;
+import nlt.bondarenko.newsapp.interactor.InteractorSourceListImpl;
 import nlt.bondarenko.newsapp.util.newsApi.models.Source;
 
 public class SourceListPresenterImpl implements SourceListContract.SourceListPresenter {
 
     private SourceListContract.SourceListView view;
-    private Interactor interactor = new InteractorImpl();
+    private InteractorSourceList interactor = new InteractorSourceListImpl();
     private Handler handler = new Handler(Looper.getMainLooper());
 
     @Override
