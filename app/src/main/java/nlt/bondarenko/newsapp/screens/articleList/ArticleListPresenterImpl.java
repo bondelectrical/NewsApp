@@ -1,26 +1,22 @@
 package nlt.bondarenko.newsapp.screens.articleList;
 
-import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 
-import java.io.IOException;
 import java.util.List;
 
-import nlt.bondarenko.newsapp.interactor.ArticleInteractor;
-import nlt.bondarenko.newsapp.interactor.ArticleInteractorImpl;
-import nlt.bondarenko.newsapp.util.newsApi.models.Article;
+import nlt.bondarenko.newsapp.interactor.ArticleListInteractor;
+import nlt.bondarenko.newsapp.interactor.ArticleListInteractorImpl;
+import nlt.bondarenko.newsapp.network.models.Article;
 
 public class ArticleListPresenterImpl implements ArticleListContract.ArticleListPresenter {
 
-    private final ArticleInteractor interactor;
+    private final ArticleListInteractor interactor;
     private ArticleListContract.ArticleListView view;
     private Handler handler;
-    private Context context;
 
-    public ArticleListPresenterImpl(Context context) {
-        this.context = context;
-        interactor = new ArticleInteractorImpl();
+    public ArticleListPresenterImpl() {
+        interactor = new ArticleListInteractorImpl();
         handler = new Handler(Looper.getMainLooper());
     }
 
@@ -39,7 +35,7 @@ public class ArticleListPresenterImpl implements ArticleListContract.ArticleList
         new Thread(new Runnable() {
             @Override
             public void run() {
-                interactor.setNewsBookMarks(context, news);
+                interactor.saveArticleBookMark(news);
 
             }
         }).start();
@@ -50,12 +46,40 @@ public class ArticleListPresenterImpl implements ArticleListContract.ArticleList
     @Override
     public void getArticleList() {
         Thread thread = new Thread(() -> {
-            try {
-                List<Article> articleList = interactor.getArticleListNews().getArticles();
-                handler.post(() -> view.updateArticleList(articleList));
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
+            List<Article> articleList = interactor.getArticleList().getArticles();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (view != null) view.updateArticleList(articleList);
+                }
+            });
+//            handler.post(() -> view.updateArticleList(articleList));
+        });
+        thread.start();
+    }
+
+
+    @Override
+    public void shareArticleNews(Article news) {
+        view.shareArticle(news);
+    }
+
+    @Override
+    public void showArticleWebView(String url) {
+        view.showArticle(url);
+    }
+
+    @Override
+    public void getSearchArticleList(String search) {
+        Thread thread = new Thread(() -> {
+            List<Article> articleList = interactor.getSearchArticleList(search).getArticles();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (view != null) view.updateArticleList(articleList);
+                }
+            });
+//            handler.post(() -> view.updateArticleList(articleList));
         });
         thread.start();
     }

@@ -1,26 +1,22 @@
 package nlt.bondarenko.newsapp.screens.bokmarks;
 
-import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 
 import java.util.List;
 
-import nlt.bondarenko.newsapp.interactor.InreractorBookmark;
-import nlt.bondarenko.newsapp.interactor.InreractorBookmarkImpl;
-import nlt.bondarenko.newsapp.roomdatabase.entity.NewsBookMarksEntity;
+import nlt.bondarenko.newsapp.interactor.BookmarkInreractor;
+import nlt.bondarenko.newsapp.interactor.BookmarkInreractorImpl;
+import nlt.bondarenko.newsapp.roomdatabase.entity.ArticleBookMarksEntity;
 
 public class BookmarkPresenterImpl implements BookmarkContract.BookmarkPresenter {
 
-    private final InreractorBookmark inreractorBookmark;
+    private final BookmarkInreractor bookmarkInreractor;
     private final Handler handler;
     private BookmarkContract.BookmarkView view;
-    private Context context;
 
-    public BookmarkPresenterImpl(Context context) {
-        this.context = context;
-        inreractorBookmark = new InreractorBookmarkImpl();
+    public BookmarkPresenterImpl() {
+        bookmarkInreractor = new BookmarkInreractorImpl();
         handler = new Handler(Looper.getMainLooper());
     }
 
@@ -38,21 +34,37 @@ public class BookmarkPresenterImpl implements BookmarkContract.BookmarkPresenter
     public void getBookmarkList() {
 
         Thread thread = new Thread(() -> {
-            List<NewsBookMarksEntity> newsBookMarks = inreractorBookmark.getNewsBookMarks(context);
-            handler.post(() -> view.updateBookMarksList(newsBookMarks));
+            List<ArticleBookMarksEntity> newsBookMarks = bookmarkInreractor.getArticleBookMarks();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (view != null) view.updateBookMarksList(newsBookMarks);
+                }
+            });
+//            handler.post(() -> view.updateBookMarksList(newsBookMarks));
         });
         thread.start();
 
     }
 
     @Override
-    public void deleteBookmarkItem(NewsBookMarksEntity news) {
-        Log.d("MyTAg", "delete mark");
+    public void deleteBookmarkItem(ArticleBookMarksEntity article) {
+
         Thread thread = new Thread(() -> {
-            inreractorBookmark.deleteNewsBookMarks(context, news);
+            bookmarkInreractor.deleteArticleBookMarks(article);
             getBookmarkList();
         });
         thread.start();
 
+    }
+
+    @Override
+    public void shareBookmarkArticle(ArticleBookMarksEntity article) {
+        view.shareArticleBookMarks(article);
+    }
+
+    @Override
+    public void showArticleWebView(String url) {
+        view.showArticle(url);
     }
 }

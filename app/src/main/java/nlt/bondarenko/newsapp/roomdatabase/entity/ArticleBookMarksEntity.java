@@ -8,23 +8,27 @@ import androidx.room.PrimaryKey;
 import nlt.bondarenko.newsapp.data.News;
 
 @Entity(indices = {@Index(value = "title", unique = true)})
-public class NewsBookMarksEntity implements News {
+public class ArticleBookMarksEntity implements News {
     @PrimaryKey(autoGenerate = true)
     private long id;
 
     @ColumnInfo(name = "name")
     private String name;
+
     @ColumnInfo(name = "title")
     private String title;
+
     @ColumnInfo(name = "description")
     private String description;
+
     @ColumnInfo(name = "url")
     private String url;
+
     @ColumnInfo(name = "urlToImage")
     private String urlToImage;
 
 
-    public NewsBookMarksEntity(String name, String title, String description, String url, String urlToImage) {
+    public ArticleBookMarksEntity(String name, String title, String description, String url, String urlToImage) {
         this.name = name;
         this.title = title;
         this.description = description;

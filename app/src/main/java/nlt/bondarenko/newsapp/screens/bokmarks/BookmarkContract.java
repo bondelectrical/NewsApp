@@ -2,13 +2,17 @@ package nlt.bondarenko.newsapp.screens.bokmarks;
 
 import java.util.List;
 
-import nlt.bondarenko.newsapp.roomdatabase.entity.NewsBookMarksEntity;
+import nlt.bondarenko.newsapp.roomdatabase.entity.ArticleBookMarksEntity;
 
 public interface BookmarkContract {
 
     interface BookmarkView {
 
-        void updateBookMarksList(List<NewsBookMarksEntity> newsBookMarksEntities);
+        void updateBookMarksList(List<ArticleBookMarksEntity> newsBookMarksEntities);
+
+        void showArticle(String url);
+
+        void shareArticleBookMarks(ArticleBookMarksEntity news);
 
     }
 
@@ -20,7 +24,11 @@ public interface BookmarkContract {
 
         void getBookmarkList();
 
-        void deleteBookmarkItem(NewsBookMarksEntity news);
+        void deleteBookmarkItem(ArticleBookMarksEntity news);
+
+        void shareBookmarkArticle(ArticleBookMarksEntity news);
+
+        void showArticleWebView(String url);
 
     }
 
