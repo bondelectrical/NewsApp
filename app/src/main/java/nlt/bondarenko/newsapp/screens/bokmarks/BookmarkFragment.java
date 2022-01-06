@@ -11,6 +11,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,13 +22,13 @@ import java.util.List;
 import nlt.bondarenko.newsapp.R;
 import nlt.bondarenko.newsapp.roomdatabase.entity.ArticleBookMarksEntity;
 import nlt.bondarenko.newsapp.screens.article.ArticleFragment;
+import nlt.bondarenko.newsapp.viewmodel.BookmarkListViewModel;
 
-public class BookmarkFragment extends Fragment implements BookmarkContract.BookmarkView, BookmarkListAdapter.OnClickListenerMarkList {
+public class BookmarkFragment extends Fragment implements BookmarkListAdapter.OnClickListenerMarkList {
 
-
-    private BookmarkContract.BookmarkPresenter bookmarkPresenter;
     private RecyclerView recyclerViewMark;
-    private BookmarkListAdapter markListAdapterNews;
+    private BookmarkListAdapter bookmarkListAdapter;
+    private BookmarkListViewModel model;
 
     public static BookmarkFragment newInstance() {
 
@@ -41,42 +43,50 @@ public class BookmarkFragment extends Fragment implements BookmarkContract.Bookm
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        bookmarkPresenter = new BookmarkPresenterImpl();
         return inflater.inflate(R.layout.fragment_bookmark, null);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        bookmarkPresenter.attach(this);
         recyclerViewMark = view.findViewById(R.id.recycle_view_mark_list);
-        markListAdapterNews = new BookmarkListAdapter(getContext(), this);
+        bookmarkListAdapter = new BookmarkListAdapter(getContext(), this);
         recyclerViewMark.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerViewMark.setAdapter(markListAdapterNews);
-        bookmarkPresenter.getBookmarkList();
-    }
+        recyclerViewMark.setAdapter(bookmarkListAdapter);
 
+        model = new ViewModelProvider(getActivity()).get(BookmarkListViewModel.class);
 
-    @Override
-    public void onDestroyView() {
-        bookmarkPresenter.detach();
-        super.onDestroyView();
-    }
+        model.livedata.observe(getViewLifecycleOwner(), new Observer<List<ArticleBookMarksEntity>>() {
+            @Override
+            public void onChanged(List<ArticleBookMarksEntity> articleBookMarksEntities) {
+                bookmarkListAdapter.setArticleList(articleBookMarksEntities);
+            }
+        });
 
-    @Override
-    public void updateBookMarksList(List<ArticleBookMarksEntity> newsBookMarksEntities) {
-        markListAdapterNews.setArticleList(newsBookMarksEntities);
     }
 
     @Override
+    public void onClickItemArticle(ArticleBookMarksEntity news) {
+        model.deleteArticleBookmark(news);
+    }
+
+    @Override
+    public void onClickListenerArticleShare(ArticleBookMarksEntity news) {
+        shareArticleBookMarks(news);
+    }
+
+    @Override
+    public void onClickListenerWebView(String url) {
+        showArticle(url);
+    }
+
+
     public void showArticle(String url) {
         Bundle bundle = new Bundle();
         bundle.putString(ArticleFragment.URL_KEY, url);
         Navigation.findNavController(recyclerViewMark).navigate(R.id.article_fragment, bundle);
-
     }
 
-    @Override
     public void shareArticleBookMarks(ArticleBookMarksEntity news) {
         Intent sendIntent = new Intent(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT, news.getUrl());
@@ -89,21 +99,5 @@ public class BookmarkFragment extends Fragment implements BookmarkContract.Bookm
             Toast.makeText(context, getResources().getString(R.string.no_app),
                     Toast.LENGTH_SHORT).show();
         }
-    }
-
-
-    @Override
-    public void onClickItemArticle(ArticleBookMarksEntity news) {
-        bookmarkPresenter.deleteBookmarkItem(news);
-    }
-
-    @Override
-    public void onClickListenerArticleShare(ArticleBookMarksEntity news) {
-        bookmarkPresenter.shareBookmarkArticle(news);
-    }
-
-    @Override
-    public void onClickListenerWebView(String url) {
-        bookmarkPresenter.showArticleWebView(url);
     }
 }

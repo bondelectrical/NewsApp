@@ -14,6 +14,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,12 +25,15 @@ import java.util.List;
 import nlt.bondarenko.newsapp.R;
 import nlt.bondarenko.newsapp.network.models.Article;
 import nlt.bondarenko.newsapp.screens.article.ArticleFragment;
+import nlt.bondarenko.newsapp.viewmodel.ArticleListViewModel;
+import nlt.bondarenko.newsapp.viewmodel.BookmarkListViewModel;
 
-public class ArticleListFragment extends Fragment implements ArticleListContract.ArticleListView, ArticleListAdapter.OnClickListenerArticleList {
+public class ArticleListFragment extends Fragment implements ArticleListAdapter.OnClickListenerArticleList {
 
-    private ArticleListContract.ArticleListPresenter articleListPresenter;
     private RecyclerView recyclerViewArticle;
     private ArticleListAdapter articleListAdapterNews;
+    private ArticleListViewModel model;
+    private Observer<List<Article>> observer;
 
 
     public static ArticleListFragment newInstance() {
@@ -43,7 +48,6 @@ public class ArticleListFragment extends Fragment implements ArticleListContract
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        articleListPresenter = new ArticleListPresenterImpl();
         setHasOptionsMenu(true);
         return inflater.inflate(R.layout.fragment_article_list, null);
     }
@@ -51,18 +55,20 @@ public class ArticleListFragment extends Fragment implements ArticleListContract
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        articleListPresenter.attach(this);
         recyclerViewArticle = view.findViewById(R.id.recycle_view_article_list);
         articleListAdapterNews = new ArticleListAdapter(getContext(), this);
         recyclerViewArticle.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewArticle.setAdapter(articleListAdapterNews);
-        articleListPresenter.getArticleList();
 
-    }
+        model = new ViewModelProvider(this).get(ArticleListViewModel.class);
 
-    @Override
-    public void updateArticleList(List<Article> articleList) {
-        articleListAdapterNews.setArticleList(articleList);
+        observer = new Observer<List<Article>>() {
+            @Override
+            public void onChanged(List<Article> articles) {
+                articleListAdapterNews.setArticleList(articles);
+            }
+        };
+        model.livedata.observe(getViewLifecycleOwner(), observer);
 
     }
 
@@ -75,27 +81,44 @@ public class ArticleListFragment extends Fragment implements ArticleListContract
         searchView.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                articleListPresenter.getSearchArticleList(query);
+                model.getSearchArticleList(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if (searchView.getQuery().length() == 0) articleListPresenter.getArticleList();
+                if (searchView.getQuery().length() == 0) model.loadArticleList();
                 return false;
             }
         });
         searchView.setOnCloseListener(new androidx.appcompat.widget.SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
-                articleListPresenter.getArticleList();
+                model.loadArticleList();
                 return false;
             }
         });
 
     }
 
+
     @Override
+    public void onClickItemArticle(Article news) {
+        BookmarkListViewModel model = new ViewModelProvider(getActivity()).get(BookmarkListViewModel.class);
+        model.addArticleBookmark(news);
+    }
+
+    @Override
+    public void onClickListenerArticleShare(Article news) {
+        shareArticle(news);
+    }
+
+    @Override
+    public void onClickListenerWebView(String url) {
+        showArticle(url);
+    }
+
+
     public void shareArticle(Article news) {
         Intent sendIntent = new Intent(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT, news.getUrl());
@@ -110,36 +133,10 @@ public class ArticleListFragment extends Fragment implements ArticleListContract
         }
     }
 
-
-    @Override
     public void showArticle(String url) {
         setHasOptionsMenu(false);
         Bundle bundle = new Bundle();
         bundle.putString(ArticleFragment.URL_KEY, url);
         Navigation.findNavController(recyclerViewArticle).navigate(R.id.article_fragment, bundle);
-
     }
-
-    @Override
-    public void onDestroyView() {
-        articleListPresenter.detach();
-        super.onDestroyView();
-    }
-
-    @Override
-    public void onClickItemArticle(Article news) {
-        articleListPresenter.setArticleDataBase(news);
-    }
-
-    @Override
-    public void onClickListenerArticleShare(Article news) {
-        articleListPresenter.shareArticleNews(news);
-    }
-
-    @Override
-    public void onClickListenerWebView(String url) {
-        articleListPresenter.showArticleWebView(url);
-    }
-
-
 }

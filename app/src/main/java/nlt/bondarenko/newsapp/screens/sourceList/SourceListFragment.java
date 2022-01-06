@@ -60,7 +60,7 @@ public class SourceListFragment extends Fragment implements SourceListAdapter.On
         model = new ViewModelProvider(this, new SourceListModelFactory("Hello")).get(SourceListViewModel.class);
 
 //        model = new ViewModelProvider(this).get(SourceListViewModel.class);
-        model.livedata.observe(this, new Observer<List<Source>>() {
+        model.livedata.observe(getViewLifecycleOwner(), new Observer<List<Source>>() {
             @Override
             public void onChanged(List<Source> sources) {
                 sourceListAdapter.setList(sources);

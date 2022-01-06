@@ -77,17 +77,6 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
     }
 
 
-    public interface OnClickListenerMarkList {
-
-        void onClickItemArticle(ArticleBookMarksEntity news);
-
-        void onClickListenerArticleShare(ArticleBookMarksEntity news);
-
-        void onClickListenerWebView(String url);
-
-    }
-
-
     @Override
     public int getItemCount() {
         if (articleList != null) {
@@ -103,6 +92,16 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<BookmarkListAdapte
             super(binding.getRoot());
             this.binding = binding;
         }
+
+    }
+
+    public interface OnClickListenerMarkList {
+
+        void onClickItemArticle(ArticleBookMarksEntity news);
+
+        void onClickListenerArticleShare(ArticleBookMarksEntity news);
+
+        void onClickListenerWebView(String url);
 
     }
 }

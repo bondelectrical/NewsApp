@@ -60,6 +60,7 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
         holder.binding.textViewNews.setText(articleItem.getTitle());
         holder.binding.textViewDescriptionNews.setText(articleItem.getDescription());
         holder.binding.textViewSource.setText(articleItem.getName());
+
         holder.binding.imageButtonShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

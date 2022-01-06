@@ -10,5 +10,7 @@ public interface BookmarkInreractor {
 
     void deleteArticleBookMarks(ArticleBookMarksEntity article);
 
+    void addArticleBookMarks(ArticleBookMarksEntity article);
+
 
 }

@@ -22,4 +22,9 @@ public class BookmarkInreractorImpl implements BookmarkInreractor {
         repository.deleteArticleBookMarks(article);
     }
 
+    @Override
+    public void addArticleBookMarks(ArticleBookMarksEntity article) {
+        repository.saveArticleBookMarks(article);
+    }
+
 }
