@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         bottomNavigationViewMain = findViewById(R.id.bottom_navigation_main);
 
         actionBar = getSupportActionBar();

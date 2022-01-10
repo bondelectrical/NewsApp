@@ -13,17 +13,17 @@ import nlt.bondarenko.newsapp.roomdatabase.entity.ArticleBookMarksEntity;
 
 public class RepositoryImpl implements Repository {
 
-    private static RepositoryImpl repository;
+//    private static RepositoryImpl repository;
 
 
-    public static RepositoryImpl getRepositoryImpl() {
-        if (repository == null) {
-            synchronized (RepositoryImpl.class) {
-                repository = new RepositoryImpl();
-            }
-        }
-        return repository;
-    }
+//    public static RepositoryImpl getRepositoryImpl() {
+//        if (repository == null) {
+//            synchronized (RepositoryImpl.class) {
+//                repository = new RepositoryImpl();
+//            }
+//        }
+//        return repository;
+//    }
 
     @Override
     public SourceResponse getSourceList() {
