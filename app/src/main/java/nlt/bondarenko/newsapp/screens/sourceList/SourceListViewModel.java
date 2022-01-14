@@ -1,8 +1,7 @@
-package nlt.bondarenko.newsapp.viewmodel;
+package nlt.bondarenko.newsapp.screens.sourceList;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -19,18 +18,15 @@ public class SourceListViewModel extends ViewModel {
     private MutableLiveData<List<Source>> sourceList;
     public LiveData<List<Source>> livedata;
     private SourceListInteractor interactor = new SourceListInteractorImpl();
-    private String message;
 
 
-    public SourceListViewModel(String message) {
-        this.message = message;
+    public SourceListViewModel() {
         sourceList = new MutableLiveData<>();
         livedata = sourceList;
         loadSourceList();
     }
 
     private void loadSourceList() {
-        Log.d("MyTag", message);
         Handler handler = new Handler(Looper.getMainLooper());
         Thread thread = new Thread(() -> {
             List<Source> sources = interactor.getSourceList().getSources();

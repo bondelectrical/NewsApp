@@ -1,4 +1,4 @@
-package nlt.bondarenko.newsapp.viewmodel;
+package nlt.bondarenko.newsapp.screens.bokmarks;
 
 import android.os.Handler;
 import android.os.Looper;

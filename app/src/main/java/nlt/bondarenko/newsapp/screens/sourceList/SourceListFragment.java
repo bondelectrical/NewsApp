@@ -22,8 +22,6 @@ import java.util.List;
 
 import nlt.bondarenko.newsapp.R;
 import nlt.bondarenko.newsapp.network.models.Source;
-import nlt.bondarenko.newsapp.viewmodel.SourceListModelFactory;
-import nlt.bondarenko.newsapp.viewmodel.SourceListViewModel;
 
 public class SourceListFragment extends Fragment implements SourceListAdapter.OnSourceListClickListener {
 
@@ -57,22 +55,13 @@ public class SourceListFragment extends Fragment implements SourceListAdapter.On
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(sourceListAdapter);
 
-        model = new ViewModelProvider(this, new SourceListModelFactory("Hello")).get(SourceListViewModel.class);
-
-//        model = new ViewModelProvider(this).get(SourceListViewModel.class);
+        model = new ViewModelProvider(this).get(SourceListViewModel.class);
         model.livedata.observe(getViewLifecycleOwner(), new Observer<List<Source>>() {
             @Override
             public void onChanged(List<Source> sources) {
                 sourceListAdapter.setList(sources);
             }
         });
-//        model.getSourceList().observe(this, new Observer<List<Source>>() {
-//            @Override
-//            public void onChanged(List<Source> sources) {
-//                sourceListAdapter.setList(sources);
-//            }
-//        });
-
 
     }
 

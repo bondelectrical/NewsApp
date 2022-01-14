@@ -14,26 +14,21 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
-
 import nlt.bondarenko.newsapp.R;
 import nlt.bondarenko.newsapp.network.models.Article;
 import nlt.bondarenko.newsapp.screens.article.ArticleFragment;
-import nlt.bondarenko.newsapp.viewmodel.ArticleListViewModel;
-import nlt.bondarenko.newsapp.viewmodel.BookmarkListViewModel;
+import nlt.bondarenko.newsapp.screens.bokmarks.BookmarkListViewModel;
 
 public class ArticleListFragment extends Fragment implements ArticleListAdapter.OnClickListenerArticleList {
 
     private RecyclerView recyclerViewArticle;
     private ArticleListAdapter articleListAdapterNews;
     private ArticleListViewModel model;
-    private Observer<List<Article>> observer;
 
 
     public static ArticleListFragment newInstance() {
@@ -62,13 +57,7 @@ public class ArticleListFragment extends Fragment implements ArticleListAdapter.
 
         model = new ViewModelProvider(this).get(ArticleListViewModel.class);
 
-        observer = new Observer<List<Article>>() {
-            @Override
-            public void onChanged(List<Article> articles) {
-                articleListAdapterNews.setArticleList(articles);
-            }
-        };
-        model.livedata.observe(getViewLifecycleOwner(), observer);
+        model.livedata.observe(getViewLifecycleOwner(), articles -> articleListAdapterNews.setArticleList(articles));
 
     }
 

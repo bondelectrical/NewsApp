@@ -22,7 +22,6 @@ import java.util.List;
 import nlt.bondarenko.newsapp.R;
 import nlt.bondarenko.newsapp.roomdatabase.entity.ArticleBookMarksEntity;
 import nlt.bondarenko.newsapp.screens.article.ArticleFragment;
-import nlt.bondarenko.newsapp.viewmodel.BookmarkListViewModel;
 
 public class BookmarkFragment extends Fragment implements BookmarkListAdapter.OnClickListenerMarkList {
 
